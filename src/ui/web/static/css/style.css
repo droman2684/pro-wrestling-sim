@@ -231,3 +231,154 @@ a {
 a:hover {
     color: var(--accent-gold);
 }
+
+/* Help & Tooltips */
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-size: 0.7rem;
+    cursor: help;
+    margin-left: 4px;
+    transition: all 0.2s;
+}
+
+.help-icon:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%) !important;
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+}
+
+/* Cursor Utilities */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--secondary-color);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    opacity: 0.15;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.empty-state h5 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Step Indicators */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 0.75rem;
+}
+
+.step-active .step-number {
+    background-color: #007bff;
+    color: white;
+}
+
+.step-complete .step-number {
+    background-color: #27ae60;
+    color: white;
+}
+
+.step-incomplete .step-number {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+/* Utility Classes */
+.fw-800 {
+    font-weight: 800 !important;
+}
+
+.ls-1 {
+    letter-spacing: 1px !important;
+}
+
+/* Radio List Items */
+.list-group-item.cursor-pointer:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Info Alerts */
+.alert-primary {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-color: rgba(0, 123, 255, 0.2);
+    color: #004085;
+}
+
+.alert-info {
+    background-color: rgba(23, 162, 184, 0.1);
+    border-color: rgba(23, 162, 184, 0.2);
+    color: #0c5460;
+}
