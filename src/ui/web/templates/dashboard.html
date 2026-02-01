@@ -239,20 +239,17 @@
             </div>
             <div class="card-body p-0">
                 {% set all_titles = game.get_titles() %}
-                {% if all_titles %}
-                    {% for title in all_titles[:4] %}
+                {% set occupied_titles = all_titles | selectattr('current_holder_id') | list %}
+                {% if occupied_titles %}
+                    {% for title in occupied_titles[:4] %}
                     <div class="d-flex align-items-center p-3 border-bottom">
                         <div class="me-3 text-warning">
                             <i class="bi bi-trophy-fill fs-4"></i>
                         </div>
                         <div class="flex-grow-1 overflow-hidden">
                             <div class="text-uppercase small fw-bold text-muted text-truncate">{{ title.name }}</div>
-                            {% if title.current_holder_id %}
-                                {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
-                                <div class="fw-bold text-truncate">{{ holder.name }}</div>
-                            {% else %}
-                                <div class="text-muted fst-italic">Vacant</div>
-                            {% endif %}
+                            {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                            <div class="fw-bold text-truncate">{{ holder.name }}</div>
                         </div>
                     </div>
                     {% endfor %}
