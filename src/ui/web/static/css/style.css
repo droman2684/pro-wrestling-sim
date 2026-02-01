@@ -372,6 +372,19 @@ a:hover {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Buttons on white backgrounds */
+.bg-white .btn-link,
+.card-header.bg-white .btn-link,
+.card-footer.bg-white .btn-link {
+    color: #0969da !important;
+}
+
+.bg-white .btn-link:hover,
+.card-header.bg-white .btn-link:hover,
+.card-footer.bg-white .btn-link:hover {
+    color: #b8960f !important;
+}
+
 /* Legacy custom buttons */
 .btn-gold {
     background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-secondary) 100%);
@@ -435,14 +448,21 @@ a:hover {
 }
 
 .badge.bg-light {
-    background: var(--bg-tertiary) !important;
-    color: var(--text-primary) !important;
-    border: 1px solid var(--border-primary);
+    background: #f6f8fa !important;
+    color: #1c2128 !important;
+    border: 1px solid #d0d7de;
 }
 
 .badge.bg-dark {
     background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
+}
+
+/* Bootstrap badge on white backgrounds */
+.bg-white .badge.bg-secondary,
+.card-header.bg-white .badge.bg-secondary {
+    background: #6e7681 !important;
+    color: #ffffff !important;
 }
 
 /* Custom badge variants */
@@ -674,6 +694,86 @@ a:hover {
 
 .bg-light { background-color: var(--bg-tertiary) !important; }
 .bg-dark { background-color: var(--bg-primary) !important; }
+
+/* White backgrounds need dark text for readability */
+.bg-white,
+.card-header.bg-white,
+.card-footer.bg-white,
+.list-group-item.bg-white {
+    background-color: #ffffff !important;
+    color: #1c2128 !important;
+}
+
+/* Ensure links are visible on white backgrounds */
+.bg-white a,
+.card-header.bg-white a,
+.card-footer.bg-white a {
+    color: #0969da !important;
+}
+
+.bg-white a:hover,
+.card-header.bg-white a:hover,
+.card-footer.bg-white a:hover {
+    color: #b8960f !important;
+}
+
+/* Icons on white backgrounds */
+.bg-white i,
+.card-header.bg-white i,
+.card-footer.bg-white i {
+    color: #b8960f !important;
+}
+
+/* Headings on white backgrounds */
+.bg-white h1, .bg-white h2, .bg-white h3,
+.bg-white h4, .bg-white h5, .bg-white h6,
+.card-header.bg-white h1, .card-header.bg-white h2,
+.card-header.bg-white h3, .card-header.bg-white h4,
+.card-header.bg-white h5, .card-header.bg-white h6 {
+    color: #1c2128 !important;
+}
+
+/* Text utilities on white backgrounds */
+.bg-white .text-muted {
+    color: #57606a !important;
+}
+
+/* Alert light variant - ensure dark text */
+.alert-light {
+    background-color: #f6f8fa !important;
+    border-color: #d0d7de !important;
+    color: #1c2128 !important;
+}
+
+.alert-light a {
+    color: #0969da !important;
+    font-weight: 600;
+}
+
+/* Card with light background variants */
+.card.bg-light,
+.card-body.bg-light {
+    background-color: #f6f8fa !important;
+    color: #1c2128 !important;
+}
+
+.card.bg-light h1, .card.bg-light h2, .card.bg-light h3,
+.card.bg-light h4, .card.bg-light h5, .card.bg-light h6,
+.card-body.bg-light h1, .card-body.bg-light h2,
+.card-body.bg-light h3, .card-body.bg-light h4,
+.card-body.bg-light h5, .card-body.bg-light h6 {
+    color: #1c2128 !important;
+}
+
+.card.bg-light .text-muted,
+.card-body.bg-light .text-muted {
+    color: #57606a !important;
+}
+
+.card.bg-light i,
+.card-body.bg-light i {
+    color: #b8960f !important;
+}
 
 .border { border-color: var(--border-primary) !important; }
 .border-primary { border-color: var(--gold-primary) !important; }
