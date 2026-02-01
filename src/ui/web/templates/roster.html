@@ -1,76 +1,113 @@
 {% extends "base.html" %}
 
-{% block title %}Roster - Pro Wrestling Sim{% endblock %}
+{% block title %}Talent Relations - {{ wrestlers|length }} Active{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0"><i class="bi bi-people-fill me-2 text-gold"></i>Roster <span class="text-muted fs-4">({{ wrestlers|length }})</span></h2>
-    <a href="{{ url_for('create_wrestler') }}" class="btn btn-gold shadow-sm">
-        <i class="bi bi-person-plus me-1"></i>Create Wrestler
-    </a>
+<!-- Page Header -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 pb-3 border-bottom">
+    <div class="mb-3 mb-md-0">
+        <h6 class="text-uppercase text-muted fw-bold ls-1 mb-1">Roster Management</h6>
+        <h2 class="mb-0 fw-bold"><i class="bi bi-people me-2 text-brand"></i>Talent Relations</h2>
+    </div>
+    <div class="d-flex gap-2">
+        <div class="btn-group shadow-sm">
+            <button class="btn btn-white border active" data-bs-toggle="tooltip" title="Grid View"><i class="bi bi-grid-fill"></i></button>
+            <button class="btn btn-white border" data-bs-toggle="tooltip" title="List View"><i class="bi bi-list"></i></button>
+        </div>
+        <a href="{{ url_for('create_wrestler') }}" class="btn btn-primary fw-bold shadow-sm">
+            <i class="bi bi-person-plus-fill me-2"></i>Sign Talent
+        </a>
+    </div>
 </div>
 
-<div class="row g-4">
+<!-- Filters (Visual Only for Phase 1) -->
+<div class="d-flex gap-2 overflow-auto pb-3 mb-2">
+    <button class="btn btn-sm btn-dark rounded-pill px-3 active">All Talent</button>
+    <button class="btn btn-sm btn-white border rounded-pill px-3">Main Eventers</button>
+    <button class="btn btn-sm btn-white border rounded-pill px-3">Midcard</button>
+    <button class="btn btn-sm btn-white border rounded-pill px-3">Jobbers</button>
+    <div class="vr mx-2"></div>
+    <button class="btn btn-sm btn-white border rounded-pill px-3 text-success">Faces</button>
+    <button class="btn btn-sm btn-white border rounded-pill px-3 text-danger">Heels</button>
+</div>
+
+<!-- Roster Grid -->
+<div class="row g-3">
     {% for wrestler in wrestlers %}
-    <div class="col-xl-3 col-lg-4 col-md-6">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
+    {% set ovr = wrestler.get_overall_rating() %}
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="card h-100 border-0 shadow-sm hover-lift position-relative overflow-hidden">
+            
+            <!-- Alignment Strip -->
+            <div class="position-absolute top-0 start-0 w-100" style="height: 4px; background: {{ 'var(--success-text)' if wrestler.alignment == 'Face' else 'var(--danger-text)' }}"></div>
+            
+            <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div>
-                        <h5 class="card-title fw-bold mb-0 text-primary">{{ wrestler.name }}</h5>
-                        {% if wrestler.nickname %}
-                        <small class="text-muted">"{{ wrestler.nickname }}"</small>
-                        {% endif %}
-                    </div>
-                    <span class="badge rounded-pill {% if wrestler.alignment == 'Face' %}badge-face{% elif wrestler.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %}">
-                        {{ wrestler.alignment }}
-                    </span>
-                </div>
-
-                <div class="mb-4">
-                    <div class="d-flex justify-content-between small text-muted mb-1 fw-bold">
-                        <span>OVERALL</span>
-                        <span>{{ wrestler.get_overall_rating() }}</span>
-                    </div>
-                    <div class="stat-bar bg-light">
-                        <div class="stat-bar-fill {% if wrestler.get_overall_rating() >= 80 %}stat-high{% elif wrestler.get_overall_rating() >= 60 %}stat-mid{% else %}stat-low{% endif %}"
-                             style="width: {{ wrestler.get_overall_rating() }}%;"></div>
-                    </div>
-                </div>
-
-                <div class="row g-2 mb-3 small">
-                    <div class="col-6">
-                        <span class="text-muted d-block">Record</span>
-                        <span class="fw-bold">{{ wrestler.wins }}-{{ wrestler.losses }}</span>
-                    </div>
-                    <div class="col-6">
-                        <span class="text-muted d-block">Heat</span>
-                        <div class="d-flex align-items-center">
-                            <span class="heat-indicator {% if wrestler.heat >= 80 %}heat-hot{% elif wrestler.heat >= 60 %}heat-warm{% elif wrestler.heat >= 40 %}heat-neutral{% elif wrestler.heat >= 20 %}heat-cool{% else %}heat-cold{% endif %}"></span>
-                            <span class="fw-bold">{{ wrestler.heat }}</span>
+                    <div class="d-flex align-items-center">
+                        <!-- Avatar Placeholder -->
+                        <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center me-3 text-muted fw-bold" 
+                             style="width: 48px; height: 48px; font-size: 1.2rem;">
+                            {{ wrestler.name[:1] }}
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0 text-dark text-truncate" style="max-width: 140px;">{{ wrestler.name }}</h6>
+                            <small class="text-muted d-block" style="font-size: 0.75rem;">
+                                {{ wrestler.primary_style.name|title if wrestler.primary_style else 'Wrestler' }}
+                            </small>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <span class="text-muted d-block">Stamina</span>
-                        <span class="fw-bold {% if wrestler.stamina < 30 %}text-danger{% elif wrestler.stamina < 60 %}text-warning{% else %}text-success{% endif %}">
-                            {{ wrestler.stamina }}%
-                        </span>
-                    </div>
-                    <div class="col-6">
-                        <span class="text-muted d-block">Age</span>
-                        <span class="fw-bold">{{ wrestler.age }}</span>
+                    
+                    <!-- OVR Badge -->
+                    <div class="text-center">
+                        <div class="fw-bold d-flex align-items-center justify-content-center rounded-2 text-white shadow-sm"
+                             style="width: 42px; height: 42px; font-size: 1.1rem; 
+                             background: {% if ovr >= 90 %}#d97706{% elif ovr >= 80 %}#059669{% elif ovr >= 70 %}#2563eb{% else %}#4b5563{% endif %};">
+                            {{ ovr }}
+                        </div>
+                        <small class="text-muted fw-bold" style="font-size: 0.6rem;">OVR</small>
                     </div>
                 </div>
 
-                {% if wrestler.has_mitb_briefcase %}
-                <div class="mb-3">
-                    <span class="badge badge-champion w-100 py-2"><i class="bi bi-briefcase-fill me-1"></i>MITB Briefcase</span>
+                <!-- Tags / Badges -->
+                <div class="mb-3 d-flex gap-1 flex-wrap">
+                    <span class="badge border {{ 'bg-success bg-opacity-10 text-success border-success' if wrestler.alignment == 'Face' else 'bg-danger bg-opacity-10 text-danger border-danger' }}" style="font-size: 0.65rem;">
+                        {{ wrestler.alignment }}
+                    </span>
+                    {% if wrestler.is_injured %}
+                    <span class="badge bg-danger text-white border border-danger" style="font-size: 0.65rem;">
+                        <i class="bi bi-bandaid-fill me-1"></i>INJURED
+                    </span>
+                    {% endif %}
+                    {% if wrestler.has_mitb_briefcase %}
+                    <span class="badge bg-warning text-dark border border-warning" style="font-size: 0.65rem;">
+                        MITB
+                    </span>
+                    {% endif %}
                 </div>
-                {% endif %}
 
-                <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}" class="btn btn-sm btn-outline-primary w-100">
-                    View Profile
-                </a>
+                <!-- Stats Grid -->
+                <div class="bg-light rounded p-2 border">
+                    <div class="row g-2 text-center">
+                        <div class="col-6 border-end">
+                            <small class="text-muted text-uppercase d-block" style="font-size: 0.6rem; letter-spacing: 0.5px;">Record</small>
+                            <span class="fw-bold fs-6">{{ wrestler.wins }}-{{ wrestler.losses }}</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted text-uppercase d-block" style="font-size: 0.6rem; letter-spacing: 0.5px;">Heat</small>
+                            <span class="fw-bold fs-6 {{ 'text-danger' if wrestler.heat > 70 else 'text-muted' }}">{{ wrestler.heat }}</span>
+                        </div>
+                        <div class="col-12 border-top pt-2 mt-1">
+                            <div class="d-flex justify-content-between align-items-center px-2">
+                                <small class="text-muted fw-bold" style="font-size: 0.65rem;">CONDITION</small>
+                                <div class="progress" style="width: 60px; height: 6px;">
+                                    <div class="progress-bar {{ 'bg-success' if wrestler.condition > 80 else 'bg-warning' }}" style="width: {{ wrestler.condition }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}" class="stretched-link"></a>
             </div>
         </div>
     </div>

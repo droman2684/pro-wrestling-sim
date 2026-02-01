@@ -1,79 +1,97 @@
 {% extends "base.html" %}
 
-{% block title %}Pro Wrestling Sim - Start{% endblock %}
+{% block title %}Pro Wrestling Sim - Login{% endblock %}
 
-{% block content %}
-<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="col-md-8 col-lg-5">
-        <div class="text-center mb-5">
-            <div class="d-inline-flex align-items-center justify-content-center bg-white shadow-sm rounded-circle mb-4" style="width: 100px; height: 100px;">
-                <i class="bi bi-trophy-fill text-gold" style="font-size: 3.5rem;"></i>
-            </div>
-            <h1 class="fw-800 text-primary display-5 mb-2" style="letter-spacing: -1px;">Pro Wrestling Sim</h1>
-            <p class="text-muted fs-5">Build your wrestling empire, one show at a time.</p>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-12">
-                <div class="card border-0 shadow-lg overflow-hidden">
-                    <div class="card-header bg-primary text-white border-0 py-3 px-4">
-                        <h5 class="mb-0 fw-bold small text-uppercase ls-1"><i class="bi bi-plus-circle me-2"></i>New Journey</h5>
+{% block content_no_game %}
+<div class="d-flex align-items-center justify-content-center min-vh-100" style="background-color: #f3f4f6;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5 col-xl-4">
+                
+                <!-- Logo Area -->
+                <div class="text-center mb-5">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-white shadow-sm rounded-circle mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-trophy-fill text-warning" style="font-size: 2.5rem;"></i>
                     </div>
-                    <div class="card-body p-4">
-                        <form action="{{ url_for('new_game') }}" method="post">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold text-muted small">SELECT DATABASE</label>
-                                <select name="database" class="form-select form-select-lg" required>
-                                    <option value="">Choose a world...</option>
-                                    {% for db in databases %}
-                                    <option value="{{ db }}">{{ db }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-bold text-muted small">FEDERATION NAME</label>
-                                <input type="text" name="save_name" class="form-control form-control-lg" placeholder="e.g. Roman Federation" required>
-                            </div>
-                            <button type="submit" class="btn btn-gold btn-lg w-100 shadow-sm py-3 fw-800">
-                                <i class="bi bi-play-fill me-1"></i>BEGIN NEW GAME
-                            </button>
-                        </form>
-                    </div>
+                    <h2 class="fw-bold text-dark mb-1">PWS Manager</h2>
+                    <p class="text-muted">Pro Wrestling Simulator</p>
                 </div>
-            </div>
 
-            {% if saves %}
-            <div class="col-md-12">
-                <div class="card border-0 shadow-sm overflow-hidden">
-                    <div class="card-header bg-light border-0 py-3 px-4">
-                        <h5 class="mb-0 fw-bold small text-uppercase text-muted ls-1"><i class="bi bi-folder-fill me-2"></i>Continue Career</h5>
+                <!-- Main Card -->
+                <div class="card border-0 shadow-lg mb-4">
+                    <div class="card-header bg-white border-bottom p-0">
+                        <ul class="nav nav-tabs nav-fill card-header-tabs m-0 border-0" id="loginTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active py-3 fw-bold border-0 border-bottom border-primary border-3 rounded-0 text-dark" id="continue-tab" data-bs-toggle="tab" data-bs-target="#continue" type="button" role="tab">
+                                    Continue
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link py-3 fw-bold border-0 text-muted" id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab">
+                                    New Game
+                                </button>
+                            </li>
+                        </ul>
                     </div>
+                    
                     <div class="card-body p-4">
-                        <form action="{{ url_for('load_game') }}" method="post">
-                            <div class="row g-2">
-                                <div class="col-sm-8">
-                                    <select name="save_name" class="form-select form-select-lg" required>
-                                        <option value="">Select a save...</option>
-                                        {% for save in saves %}
-                                        <option value="{{ save }}">{{ save }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="submit" class="btn btn-outline-primary btn-lg w-100 py-2 h-100 fw-bold">
-                                        LOAD
+                        <div class="tab-content" id="loginTabContent">
+                            
+                            <!-- Tab: Continue -->
+                            <div class="tab-pane fade show active" id="continue" role="tabpanel">
+                                {% if saves %}
+                                <form action="{{ url_for('load_game') }}" method="post">
+                                    <div class="mb-4">
+                                        <label class="form-label small fw-bold text-muted">SELECT SAVE FILE</label>
+                                        <select name="save_name" class="form-select form-select-lg" required>
+                                            {% for save in saves %}
+                                            <option value="{{ save }}">{{ save }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Load Game
                                     </button>
+                                </form>
+                                {% else %}
+                                <div class="text-center py-4 text-muted">
+                                    <i class="bi bi-folder-x fs-1 mb-2 d-block"></i>
+                                    No save files found.
                                 </div>
+                                {% endif %}
                             </div>
-                        </form>
+
+                            <!-- Tab: New Game -->
+                            <div class="tab-pane fade" id="new" role="tabpanel">
+                                <form action="{{ url_for('new_game') }}" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-muted">DATABASE</label>
+                                        <select name="database" class="form-select" required>
+                                            {% for db in databases %}
+                                            <option value="{{ db }}">{{ db }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label small fw-bold text-muted">SAVE NAME</label>
+                                        <input type="text" name="save_name" class="form-control" placeholder="e.g. Roman Empire" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-lg w-100 fw-bold">
+                                        <i class="bi bi-plus-lg me-2"></i>Create & Start
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
-        </div>
 
-        <div class="text-center mt-5">
-            <p class="text-muted small">v0.5.0 Alpha | Simple Sim Sports</p>
+                <!-- Footer -->
+                <div class="text-center">
+                    <small class="text-muted">Version 0.5.0 Alpha &bull; <a href="#" class="text-decoration-none text-muted">Credits</a></small>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

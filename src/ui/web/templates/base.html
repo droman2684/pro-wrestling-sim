@@ -1,154 +1,179 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Pro Wrestling Sim{% endblock %}</title>
-    <!-- Bootstrap 5 CSS -->
+    
+    <!-- Bootstrap 5 CSS (Framework) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    
+    <!-- Custom Accessible Theme -->
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Accessibility: Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     {% if game and game.is_game_loaded %}
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
-                <svg viewBox="0 0 200 80" width="32" height="14" class="me-1 d-inline-block align-text-top">
-                    <path d="M10 25 C 10 25, 50 20, 100 20 C 150 20, 190 25, 190 25 L 190 55 C 190 55, 150 60, 100 60 C 50 60, 10 55, 10 55 Z" fill="#333" />
-                    <path d="M75 15 L125 15 L135 40 L125 65 L75 65 L65 40 Z" fill="#D4AF37" />
-                </svg>
-                PWS
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('dashboard') }}" title="Overview of your federation">
-                            <i class="bi bi-house-fill me-1"></i>Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('booking') }}" title="Book and run shows">
-                            <i class="bi bi-calendar-event-fill me-1"></i>Book Show
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" title="Manage your roster">
-                            <i class="bi bi-people-fill me-1"></i>Roster
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ url_for('roster') }}">
-                                <i class="bi bi-person-lines-fill me-2"></i>View All Wrestlers
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('create_wrestler') }}">
-                                <i class="bi bi-person-plus-fill me-2"></i>Sign New Talent
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('tag_teams') }}">
-                                <i class="bi bi-people me-2"></i>Tag Teams
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('stables') }}">
-                                <i class="bi bi-shield-fill me-2"></i>Stables
-                            </a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('brands') }}" title="Manage brand split and shows">
-                            <i class="bi bi-diagram-3-fill me-1"></i>Brands
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" title="Championships and storylines">
-                            <i class="bi bi-trophy-fill me-1"></i>Championships
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ url_for('titles') }}">
-                                <i class="bi bi-trophy me-2"></i>View All Titles
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('create_title') }}">
-                                <i class="bi bi-plus-circle me-2"></i>Create New Title
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('feuds') }}">
-                                <i class="bi bi-fire me-2"></i>Active Feuds
-                            </a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" title="Stats and history">
-                            <i class="bi bi-graph-up me-1"></i>Stats
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ url_for('rankings') }}">
-                                <i class="bi bi-bar-chart-fill me-2"></i>Rankings
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('records') }}">
-                                <i class="bi bi-journal-text me-2"></i>Records & History
-                            </a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" title="Schedule and calendar">
-                            <i class="bi bi-calendar3 me-1"></i>Schedule
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ url_for('calendar_view') }}">
-                                <i class="bi bi-calendar-month me-2"></i>Calendar View
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('weekly_shows') }}">
-                                <i class="bi bi-tv me-2"></i>Weekly Shows
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('ppv_settings') }}">
-                                <svg viewBox="0 0 200 80" width="18" height="8" class="me-2">
-                                    <path d="M10 25 C 10 25, 50 20, 100 20 C 150 20, 190 25, 190 25 L 190 55 C 190 55, 150 60, 100 60 C 50 60, 10 55, 10 55 Z" fill="#666" />
-                                    <path d="M75 15 L125 15 L135 40 L125 65 L75 65 L65 40 Z" fill="#D4AF37" />
-                                </svg>
-                                PPV Calendar
-                            </a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="d-none d-md-block text-muted small">
-                        <i class="bi bi-calendar3 me-1"></i>{{ game.get_current_date_string() }}
-                    </div>
-                    <div class="d-none d-md-block fw-bold text-success">
-                        <i class="bi bi-bank me-1"></i>${{ "{:,.0f}".format(game.get_company().bank_account if game.get_company() else 0) }}
-                    </div>
-                    <div class="vr mx-2 d-none d-md-block"></div>
-                    <form action="{{ url_for('save_game') }}" method="post" class="m-0">
-                        <button type="submit" class="btn btn-sm btn-outline-primary"><i class="bi bi-save"></i></button>
+    <div class="app-wrapper">
+        
+        <!-- Mobile Toggle -->
+        <button class="mobile-nav-toggle d-lg-none" id="sidebarToggle" aria-label="Toggle Navigation">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a class="brand-logo" href="{{ url_for('dashboard') }}">
+                    <i class="bi bi-trophy-fill text-warning me-2"></i> PWS <span class="fw-light opacity-50">Manager</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main Navigation">
+                
+                <div class="nav-group">
+                    <div class="nav-label">Core Operations</div>
+                    <a href="{{ url_for('dashboard') }}" class="nav-link {{ 'active' if request.endpoint == 'dashboard' }}">
+                        <i class="bi bi-speedometer2" aria-hidden="true"></i> Dashboard
+                    </a>
+                    <a href="{{ url_for('booking') }}" class="nav-link {{ 'active' if 'booking' in request.endpoint }}">
+                        <i class="bi bi-calendar-event" aria-hidden="true"></i> Booking Office
+                    </a>
+                    <a href="{{ url_for('weekly_shows') }}" class="nav-link {{ 'active' if request.endpoint == 'weekly_shows' }}">
+                        <i class="bi bi-tv" aria-hidden="true"></i> TV & Events
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Talent Relations</div>
+                    <a href="{{ url_for('roster') }}" class="nav-link {{ 'active' if request.endpoint == 'roster' }}">
+                        <i class="bi bi-people" aria-hidden="true"></i> Roster
+                    </a>
+                    <a href="{{ url_for('tag_teams') }}" class="nav-link {{ 'active' if request.endpoint == 'tag_teams' }}">
+                        <i class="bi bi-person-badge" aria-hidden="true"></i> Tag Teams
+                    </a>
+                    <a href="{{ url_for('stables') }}" class="nav-link {{ 'active' if request.endpoint == 'stables' }}">
+                        <i class="bi bi-shield" aria-hidden="true"></i> Stables
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Creative</div>
+                    <a href="{{ url_for('titles') }}" class="nav-link {{ 'active' if request.endpoint == 'titles' }}">
+                        <i class="bi bi-trophy" aria-hidden="true"></i> Championships
+                    </a>
+                    <a href="{{ url_for('feuds') }}" class="nav-link {{ 'active' if request.endpoint == 'feuds' }}">
+                        <i class="bi bi-fire" aria-hidden="true"></i> Storylines
+                    </a>
+                    <a href="{{ url_for('brands') }}" class="nav-link {{ 'active' if request.endpoint == 'brands' }}">
+                        <i class="bi bi-diagram-3" aria-hidden="true"></i> Brands
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Analysis</div>
+                    <a href="{{ url_for('rankings') }}" class="nav-link {{ 'active' if request.endpoint == 'rankings' }}">
+                        <i class="bi bi-graph-up" aria-hidden="true"></i> Rankings
+                    </a>
+                    <a href="{{ url_for('records') }}" class="nav-link {{ 'active' if request.endpoint == 'records' }}">
+                        <i class="bi bi-journal-text" aria-hidden="true"></i> History
+                    </a>
+                </div>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="small text-white-50"><i class="bi bi-calendar3 me-1"></i> {{ game.get_current_date_string() }}</span>
+                </div>
+                <div class="d-grid gap-2">
+                    <form action="{{ url_for('save_game') }}" method="post" class="d-grid">
+                        <button type="submit" class="btn btn-sm btn-outline-light w-100">
+                            <i class="bi bi-save me-1"></i> Save Game
+                        </button>
                     </form>
-                    <a href="{{ url_for('exit_game') }}" class="btn btn-sm btn-outline-danger"><i class="bi bi-box-arrow-right"></i></a>
+                    <a href="{{ url_for('exit_game') }}" class="btn btn-sm btn-danger text-white w-100">
+                        <i class="bi bi-power me-1"></i> Exit
+                    </a>
                 </div>
             </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content" id="main-content">
+            
+            <!-- Global Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show shadow-sm border-start border-4 border-{{ 'danger' if category == 'error' else category }}" role="alert">
+                        <div class="d-flex align-items-center">
+                            {% if category == 'success' %}
+                                <i class="bi bi-check-circle-fill fs-5 me-2 text-success"></i>
+                            {% elif category == 'error' %}
+                                <i class="bi bi-exclamation-triangle-fill fs-5 me-2 text-danger"></i>
+                            {% else %}
+                                <i class="bi bi-info-circle-fill fs-5 me-2 text-info"></i>
+                            {% endif %}
+                            <div>{{ message }}</div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% else %}
+        <!-- No game loaded (Start Screen) -->
+        <div class="container py-5">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content_no_game %}{% block content_start %}{% endblock %}{% endblock %}
         </div>
-    </nav>
     {% endif %}
 
-    <div class="container py-4">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show shadow-sm border-0" role="alert">
-                    <i class="bi bi-info-circle-fill me-2"></i>{{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        {% block content %}{% endblock %}
-    </div>
-
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize Bootstrap tooltips
+        // Simple Sidebar Toggle for Mobile
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        
+        if(toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+            });
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth < 992 && 
+                    sidebar.classList.contains('show') && 
+                    !sidebar.contains(e.target) && 
+                    !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+
+        // Initialize Tooltips
         document.addEventListener('DOMContentLoaded', function() {
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
