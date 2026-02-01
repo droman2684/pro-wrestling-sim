@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Create Brand{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="bi bi-diagram-3 me-2 text-warning"></i>Create Brand
+</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="post" action="{{ url_for('create_brand') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Brand Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control"
+                           placeholder="e.g., Monday Night Raw" required>
+                    <div class="form-text">The full name of the brand.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Short Name <span class="text-danger">*</span></label>
+                    <input type="text" name="short_name" class="form-control"
+                           placeholder="e.g., Raw" required>
+                    <div class="form-text">A short abbreviation for display.</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Brand Color <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="color" name="color" class="form-control form-control-color"
+                               value="#FF0000" style="width: 60px;">
+                        <input type="text" class="form-control" id="colorHex" value="#FF0000" readonly>
+                    </div>
+                    <div class="form-text">Choose a color to represent this brand in the UI.</div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                After creating the brand, you can assign wrestlers and titles to it from the brand management page.
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-1"></i>Create Brand
+                </button>
+                <a href="{{ url_for('brands') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelector('input[name="color"]').addEventListener('input', function(e) {
+    document.getElementById('colorHex').value = e.target.value.toUpperCase();
+});
+</script>
+{% endblock %}

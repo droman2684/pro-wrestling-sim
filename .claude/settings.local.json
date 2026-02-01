@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(dir:*)",
+      "Bash(cmd /c \"cd /d D:\\\\simple_sim_sports\\\\pro-wrestling\\\\src && python -c \"\"from core.tag_team import TagTeam; print\\(''TagTeam import OK''\\)\"\"\")",
+      "Bash(tree:*)",
+      "Bash(xargs:*)",
+      "Bash(find:*)",
+      "Bash(del \"D:\\\\simple_sim_sports\\\\pro-wrestling\\\\src\\\\match.txt\")",
+      "Bash(pip show:*)",
+      "Bash(findstr:*)",
+      "Bash(del \"D:\\\\simple_sim_sports\\\\pro-wrestling\\\\test_stables.py\")"
+    ]
+  }
+}

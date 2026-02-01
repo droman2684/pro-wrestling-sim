@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Brand Management{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="bi bi-diagram-3 me-2 text-warning"></i>Brand Split
+    </h2>
+    <a href="{{ url_for('create_brand') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Create Brand
+    </a>
+</div>
+
+{% if not brands %}
+<div class="alert alert-info">
+    <h5><i class="bi bi-info-circle me-2"></i>No Brand Split Active</h5>
+    <p class="mb-2">
+        Create brands to split your roster into separate shows with exclusive titles.
+        This is similar to WWE's Raw vs SmackDown split.
+    </p>
+    <p class="mb-0">
+        <strong>Benefits of a brand split:</strong>
+    </p>
+    <ul class="mb-0">
+        <li>Separate rosters for different shows</li>
+        <li>Brand-exclusive championships</li>
+        <li>More storyline opportunities</li>
+        <li>Draft events between brands</li>
+    </ul>
+</div>
+{% else %}
+
+<div class="row">
+    {% for brand in brands %}
+    <div class="col-lg-6 mb-4">
+        <div class="card border-0 shadow-sm h-100"
+             style="border-top: 4px solid {{ brand.color }} !important;">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0" style="color: {{ brand.color }};">
+                    {{ brand.name }}
+                </h4>
+                <span class="badge" style="background-color: {{ brand.color }};">
+                    {{ brand.short_name }}
+                </span>
+            </div>
+            <div class="card-body">
+                <!-- Assigned Titles -->
+                <div class="mb-4">
+                    <h6 class="text-muted small text-uppercase">Exclusive Titles</h6>
+                    {% set brand_titles = brand.get_titles(titles) %}
+                    {% if brand_titles %}
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for title in brand_titles %}
+                        <span class="badge bg-warning text-dark">
+                            <i class="bi bi-trophy-fill me-1"></i>{{ title.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted mb-0 small">No titles assigned</p>
+                    {% endif %}
+                </div>
+
+                <!-- Roster Count -->
+                <div class="mb-4">
+                    <h6 class="text-muted small text-uppercase">Roster</h6>
+                    {% set brand_roster = brand.get_roster(roster) %}
+                    <p class="mb-0">
+                        <strong>{{ brand_roster|length }}</strong> wrestlers assigned
+                    </p>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <h6 class="text-muted small text-uppercase">Status</h6>
+                    {% if brand.is_active %}
+                    <span class="badge bg-success">Active</span>
+                    {% else %}
+                    <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{{ url_for('brand_roster', brand_id=brand.id) }}"
+                       class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-people me-1"></i>View Roster
+                    </a>
+                    <a href="{{ url_for('assign_wrestlers', brand_id=brand.id) }}"
+                       class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-person-plus me-1"></i>Assign Wrestlers
+                    </a>
+                    <a href="{{ url_for('assign_titles', brand_id=brand.id) }}"
+                       class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-trophy me-1"></i>Assign Titles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Free Agents Section -->
+{% set unassigned_count = roster|length %}
+{% for brand in brands %}
+{% set unassigned_count = unassigned_count - brand.assigned_wrestlers|length %}
+{% endfor %}
+
+{% if unassigned_count > 0 %}
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Free Agents</h5>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">{{ unassigned_count }} wrestlers are not assigned to any brand and can appear on any show.</p>
+    </div>
+</div>
+{% endif %}
+
+{% endif %}
+{% endblock %}

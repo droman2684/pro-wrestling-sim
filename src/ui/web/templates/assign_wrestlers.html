@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Assign Wrestlers to {{ brand.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0" style="color: {{ brand.color }};">
+        <i class="bi bi-person-plus me-2"></i>Assign Wrestlers to {{ brand.short_name }}
+    </h2>
+    <a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to Roster
+    </a>
+</div>
+
+{% if unassigned %}
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Free Agents ({{ unassigned|length }})</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('assign_wrestlers', brand_id=brand.id) }}">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="bg-light">
+                        <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" class="form-check-input" id="selectAll">
+                            </th>
+                            <th>Name</th>
+                            <th>Overall</th>
+                            <th>Alignment</th>
+                            <th>Record</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wrestler in unassigned|sort(attribute='name') %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input wrestler-check"
+                                       name="wrestlers" value="{{ wrestler.id }}">
+                            </td>
+                            <td>
+                                <strong>{{ wrestler.display_name }}</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-primary">{{ wrestler.get_overall_rating() }}</span>
+                            </td>
+                            <td>
+                                {% if wrestler.alignment == 'Face' %}
+                                <span class="badge bg-success">Face</span>
+                                {% elif wrestler.alignment == 'Heel' %}
+                                <span class="badge bg-danger">Heel</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Tweener</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ wrestler.wins }}-{{ wrestler.losses }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-1"></i>Assign Selected
+                </button>
+                <a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <i class="bi bi-info-circle me-2"></i>
+    All wrestlers are currently assigned to brands. Remove wrestlers from other brands first to assign them here.
+</div>
+<a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Back to Roster
+</a>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('selectAll').addEventListener('change', function(e) {
+    document.querySelectorAll('.wrestler-check').forEach(function(checkbox) {
+        checkbox.checked = e.target.checked;
+    });
+});
+</script>
+{% endblock %}

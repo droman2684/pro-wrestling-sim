@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Weekly Shows{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+        <i class="bi bi-tv me-2 text-warning"></i>Weekly Shows
+    </h2>
+    <a href="{{ url_for('create_weekly_show') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Create Weekly Show
+    </a>
+</div>
+
+{% if not shows %}
+<div class="alert alert-info">
+    <h5><i class="bi bi-info-circle me-2"></i>No Weekly Shows</h5>
+    <p class="mb-0">
+        Create weekly shows to automatically populate your calendar with recurring television programs.
+        This is similar to WWE's Raw, SmackDown, or NXT.
+    </p>
+</div>
+{% else %}
+
+<div class="row">
+    {% for show in shows %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 shadow-sm h-100 {% if not show.is_active %}opacity-50{% endif %}">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ show.name }}</h5>
+                {% if show.tier.value == 'major' %}
+                <span class="badge bg-danger">Major</span>
+                {% else %}
+                <span class="badge bg-secondary">Minor</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    <tr>
+                        <td class="text-muted">Short Name</td>
+                        <td class="fw-bold">{{ show.short_name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Day</td>
+                        <td class="fw-bold">{{ show.day_of_week.name|capitalize }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Runtime</td>
+                        <td>{{ show.runtime_minutes }} minutes</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Match Slots</td>
+                        <td>{{ show.match_slots }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Brand</td>
+                        <td>
+                            {% if show.brand_id %}
+                            {% for brand in brands %}
+                            {% if brand.id == show.brand_id %}
+                            <span class="badge" style="background-color: {{ brand.color }};">{{ brand.short_name }}</span>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <span class="text-muted">None (All Rosters)</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Episodes</td>
+                        <td>{{ show.total_episodes }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Avg Rating</td>
+                        <td>{{ "%.1f"|format(show.average_rating) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Status</td>
+                        <td>
+                            {% if show.is_active %}
+                            <span class="badge bg-success">Active</span>
+                            {% else %}
+                            <span class="badge bg-danger">Cancelled</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            {% if show.is_active %}
+            <div class="card-footer bg-white">
+                <form action="{{ url_for('cancel_weekly_show', show_id=show.id) }}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Cancel this weekly show? It will no longer appear on the calendar.');">
+                        <i class="bi bi-x-circle me-1"></i>Cancel Show
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}

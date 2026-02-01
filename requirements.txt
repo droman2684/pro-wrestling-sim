@@ -1,0 +1,11 @@
+# Simple Sim Sports: Pro Wrestling - Dependencies
+# Python 3.10+ required
+
+# Desktop UI framework (optional - only needed for desktop GUI)
+flet>=0.21.0
+
+# Web UI framework (optional - only needed for web GUI)
+flask>=3.0.0
+
+# Production Server (Required for Render/Heroku)
+gunicorn

@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}PPV Settings - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-calendar-event me-2 text-warning"></i>PPV Settings
+    </h2>
+    <a href="{{ url_for('calendar_view') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to Calendar
+    </a>
+</div>
+
+<!-- Add New PPV Form -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Add New PPV</h5>
+    </div>
+    <div class="card-body">
+        <form action="{{ url_for('add_ppv_route') }}" method="post" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">PPV Name</label>
+                <input type="text" name="name" class="form-control" placeholder="e.g. WrestleMania" required>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Month</label>
+                <select name="month" class="form-select">
+                    {% for i in range(1, 13) %}
+                    <option value="{{ i }}">{{ ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i-1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Week</label>
+                <select name="week" class="form-select">
+                    <option value="1">Week 1</option>
+                    <option value="2">Week 2</option>
+                    <option value="3">Week 3</option>
+                    <option value="4" selected>Week 4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Tier</label>
+                <select name="tier" class="form-select">
+                    <option value="Standard">Standard</option>
+                    <option value="Big Four">Big Four</option>
+                    <option value="Flagship">Flagship</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success w-100">Add PPV</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Existing PPV List -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="bi bi-trophy-fill me-2 text-warning"></i>PPV Calendar</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="bg-light">
+                <tr>
+                    <th style="width: 15%;">Month</th>
+                    <th style="width: 10%;">Week</th>
+                    <th style="width: 30%;">PPV Name</th>
+                    <th style="width: 15%;">Tier</th>
+                    <th style="width: 15%;">Brand</th>
+                    <th style="width: 15%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ppv in ppv_calendar %}
+                <tr>
+                    <td>
+                        <strong>{{ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][ppv.month - 1] }}</strong>
+                    </td>
+                    <td>Week {{ ppv.week }}</td>
+                    <td>
+                        <form action="{{ url_for('update_ppv_route', ppv_id=ppv.id) }}" method="post" class="d-flex gap-2">
+                            <input type="text" name="name" value="{{ ppv.name }}" class="form-control form-control-sm" required>
+                            <button type="submit" class="btn btn-sm btn-outline-primary" title="Rename">
+                                <i class="bi bi-check-lg"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        {% if ppv.tier == 'Flagship' %}
+                        <span class="badge bg-danger">Flagship</span>
+                        {% elif ppv.tier == 'Big Four' %}
+                        <span class="badge bg-warning text-dark">Big Four</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Standard</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                         {% if ppv.brand_id %}
+                             <span class="badge bg-primary">Brand {{ ppv.brand_id }}</span>
+                         {% else %}
+                             <span class="badge bg-dark">Dual Brand</span>
+                         {% endif %}
+                    </td>
+                    <td>
+                        <form action="{{ url_for('delete_ppv_route', ppv_id=ppv.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this PPV?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-4 text-muted">
+                        No PPVs scheduled. Add one above!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mt-4 bg-info bg-opacity-10">
+    <div class="card-body">
+        <h6 class="text-info mb-3"><i class="bi bi-info-circle me-2"></i>About PPV Tiers</h6>
+        <div class="row">
+            <div class="col-md-4">
+                <strong class="text-danger">Flagship</strong>
+                <p class="small mb-0 text-muted">The biggest show of the year. Features the most important matches and highest production value.</p>
+            </div>
+            <div class="col-md-4">
+                <strong class="text-warning">Big Four</strong>
+                <p class="small mb-0 text-muted">Major quarterly events with significant storyline payoffs and title matches.</p>
+            </div>
+            <div class="col-md-4">
+                <strong>Standard</strong>
+                <p class="small mb-0 text-muted">Regular monthly PPVs that build towards and follow up on major events.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

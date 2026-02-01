@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "WWE World Championship",
+        "prestige": 100,
+        "current_holder_id": null
+    },
+    {
+        "id": 2,
+        "name": "WWE Tag Team Championship",
+        "prestige": 80,
+        "current_holder_id": null
+    },
+    {
+        "id": 3,
+        "name": "WCW World Championship",
+        "prestige": 90,
+        "current_holder_id": null
+    },
+    {
+        "id": 4,
+        "name": "WWE Intercontinental Championship",
+        "prestige": 80,
+        "current_holder_id": null
+    },
+    {
+        "id": 5,
+        "name": "WCW United States Championship",
+        "prestige": 70,
+        "current_holder_id": null
+    }
+]

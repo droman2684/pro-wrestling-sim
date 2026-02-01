@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Assign Titles to {{ brand.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0" style="color: {{ brand.color }};">
+        <i class="bi bi-trophy me-2"></i>Assign Titles to {{ brand.short_name }}
+    </h2>
+    <a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to Roster
+    </a>
+</div>
+
+{% if unassigned %}
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Floating Titles ({{ unassigned|length }})</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('assign_titles', brand_id=brand.id) }}">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="bg-light">
+                        <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" class="form-check-input" id="selectAll">
+                            </th>
+                            <th>Title</th>
+                            <th>Current Champion</th>
+                            <th>Prestige</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for title in unassigned %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input title-check"
+                                       name="titles" value="{{ title.id }}">
+                            </td>
+                            <td>
+                                <strong>{{ title.name }}</strong>
+                            </td>
+                            <td>
+                                {% if title.current_holder_id %}
+                                {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                                {% if holder %}
+                                {{ holder.name }}
+                                {% else %}
+                                Unknown
+                                {% endif %}
+                                {% else %}
+                                <span class="text-muted">Vacant</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge bg-warning text-dark">{{ title.prestige }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-1"></i>Assign Selected
+                </button>
+                <a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <i class="bi bi-info-circle me-2"></i>
+    All titles are currently assigned to brands. Remove titles from other brands first to assign them here.
+</div>
+<a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Back to Roster
+</a>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('selectAll').addEventListener('change', function(e) {
+    document.querySelectorAll('.title-check').forEach(function(checkbox) {
+        checkbox.checked = e.target.checked;
+    });
+});
+</script>
+{% endblock %}

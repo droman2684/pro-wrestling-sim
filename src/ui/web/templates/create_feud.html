@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Start Feud - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h2 class="mb-4"><i class="bi bi-fire me-2 text-gold"></i>Start New Feud</h2>
+
+        <form method="post">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold text-muted small">WRESTLER 1 *</label>
+                            <select name="wrestler_a" class="form-select form-select-lg" required>
+                                <option value="">Select wrestler...</option>
+                                {% for w in wrestlers %}
+                                {% if not game.get_wrestler_feud(w.id) %}
+                                <option value="{{ w.id }}">{{ w.name }} ({{ w.alignment }})</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 text-center pt-3">
+                            <span class="fw-bold text-muted fs-4">VS</span>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold text-muted small">WRESTLER 2 *</label>
+                            <select name="wrestler_b" class="form-select form-select-lg" required>
+                                <option value="">Select wrestler...</option>
+                                {% for w in wrestlers %}
+                                {% if not game.get_wrestler_feud(w.id) %}
+                                <option value="{{ w.id }}">{{ w.name }} ({{ w.alignment }})</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 opacity-10">
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small">STARTING INTENSITY</label>
+                            <select name="intensity" class="form-select">
+                                <option value="heated">Heated (+3 rating bonus)</option>
+                                <option value="intense">Intense (+6 rating bonus)</option>
+                                <option value="blood">Blood Feud (+10 rating bonus)</option>
+                            </select>
+                            <p class="form-text small mb-0">Intensity can escalate over time as they wrestle more matches.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small">PLANNED MATCHES</label>
+                            <select name="matches" class="form-select">
+                                <option value="3">3 matches</option>
+                                <option value="5">5 matches</option>
+                                <option value="7">7 matches</option>
+                                <option value="10">10 matches (long feud)</option>
+                            </select>
+                            <p class="form-text small mb-0">The feud will automatically conclude after this many matches.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box mb-4 bg-light border-0 shadow-sm">
+                <h6 class="fw-bold text-primary mb-2"><i class="bi bi-info-circle me-2"></i>About Feuds</h6>
+                <ul class="small mb-0 text-muted ps-3">
+                    <li>Feud matches get a rating bonus based on intensity</li>
+                    <li>Intensity escalates automatically: heated -> intense -> blood</li>
+                    <li>Each wrestler can only be in one active feud at a time</li>
+                    <li>You can schedule a "blowoff match" to end the feud early</li>
+                </ul>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-gold btn-lg px-5 shadow-sm">
+                    <i class="bi bi-fire me-1"></i>Start Feud
+                </button>
+                <a href="{{ url_for('feuds') }}" class="btn btn-outline-primary btn-lg px-4 border-0">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

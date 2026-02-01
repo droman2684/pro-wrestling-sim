@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Rankings - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="color: var(--gold);"><i class="bi bi-list-ol me-2"></i>Rankings</h2>
+
+<div class="row">
+    <!-- Singles Rankings -->
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-trophy me-2 text-warning"></i>Global Singles Rankings
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">Rank</th>
+                            <th>Wrestler</th>
+                            <th class="text-center">Rec</th>
+                            <th class="text-center">Heat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wrestler in wrestler_rankings %}
+                        <tr>
+                            <td class="text-center">
+                                {% if loop.index == 1 %}
+                                <span class="badge badge-champion">#1</span>
+                                {% elif loop.index <= 3 %}
+                                <span class="badge bg-warning text-dark">#{{ loop.index }}</span>
+                                {% else %}
+                                <span class="badge bg-secondary">#{{ loop.index }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}"
+                                   class="text-decoration-none text-dark fw-bold">
+                                    {{ wrestler.name }}
+                                </a>
+                                <span class="badge {% if wrestler.alignment == 'Face' %}badge-face{% elif wrestler.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %} ms-2" style="font-size: 0.65rem;">
+                                    {{ wrestler.alignment }}
+                                </span>
+                            </td>
+                            <td class="text-center small">{{ wrestler.wins }}-{{ wrestler.losses }}</td>
+                            <td class="text-center">
+                                <span class="heat-indicator {% if wrestler.heat >= 80 %}heat-hot{% elif wrestler.heat >= 60 %}heat-warm{% elif wrestler.heat >= 40 %}heat-neutral{% elif wrestler.heat >= 20 %}heat-cool{% else %}heat-cold{% endif %}"></span>
+                                <span class="small text-muted">{{ wrestler.heat }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="text-muted text-center py-3">No rankings yet</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tag Team Rankings -->
+    <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <i class="bi bi-people-fill me-2 text-info"></i>Global Tag Team Rankings
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">Rank</th>
+                            <th>Team</th>
+                            <th class="text-center">Rec</th>
+                            <th class="text-center">Chem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in tag_rankings %}
+                        <tr>
+                            <td class="text-center">
+                                {% if loop.index == 1 %}
+                                <span class="badge badge-champion">#1</span>
+                                {% elif loop.index <= 3 %}
+                                <span class="badge bg-warning text-dark">#{{ loop.index }}</span>
+                                {% else %}
+                                <span class="badge bg-secondary">#{{ loop.index }}</span>
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ team.name }}</strong></td>
+                            <td class="text-center small">{{ team.wins }}-{{ team.losses }}</td>
+                            <td class="text-center">
+                                <div class="progress" style="height: 6px; width: 60px; display: inline-flex;">
+                                    <div class="progress-bar {% if team.chemistry >= 80 %}bg-success{% elif team.chemistry >= 50 %}bg-info{% else %}bg-warning{% endif %}"
+                                         role="progressbar" style="width: {{ team.chemistry }}%;"></div>
+                                </div>
+                                <span class="ms-1 small text-muted">{{ team.chemistry }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="text-muted text-center py-3">No tag teams</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4 text-muted">
+
+<h3 class="mb-4"><i class="bi bi-award-fill me-2 text-danger"></i>Title Contenders</h3>
+
+<div class="row">
+    {% for title, contenders in title_rankings %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-dark">{{ title.name }}</span>
+                {% if title.current_holder_id %}
+                    <span class="badge badge-champion" title="Current Champion"><i class="bi bi-star-fill"></i> Champ</span>
+                {% else %}
+                    <span class="badge bg-secondary">Vacant</span>
+                {% endif %}
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-sm table-hover mb-0">
+                    <tbody>
+                        {% for w in contenders[:5] %}
+                        <tr>
+                            <td class="text-center text-muted" style="width: 40px;">{{ loop.index }}</td>
+                            <td>
+                                <a href="{{ url_for('wrestler_profile', wrestler_id=w.id) }}" class="text-decoration-none text-dark small fw-semibold">
+                                    {{ w.name }}
+                                </a>
+                            </td>
+                            <td class="text-end small text-muted pe-3">{{ w.wins }}-{{ w.losses }}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="3" class="text-center text-muted small py-3">No eligible contenders</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-white border-top-0 text-center">
+                <small class="text-muted">Current Champ: 
+                    {% if title.current_holder_id %}
+                        {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                        <a href="{{ url_for('wrestler_profile', wrestler_id=holder.id) }}" class="fw-bold text-dark text-decoration-none">{{ holder.name }}</a>
+                    {% else %}
+                        VACANT
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

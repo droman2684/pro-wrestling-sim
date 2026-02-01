@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Create Weekly Show{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">
+    <i class="bi bi-calendar-plus me-2 text-warning"></i>Create Weekly Show
+</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="post" action="{{ url_for('create_weekly_show') }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Show Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control"
+                           placeholder="e.g., Monday Night Raw" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Short Name <span class="text-danger">*</span></label>
+                    <input type="text" name="short_name" class="form-control"
+                           placeholder="e.g., Raw" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Day of Week <span class="text-danger">*</span></label>
+                    <select name="day_of_week" class="form-select" required>
+                        <option value="0">Monday</option>
+                        <option value="1">Tuesday</option>
+                        <option value="2">Wednesday</option>
+                        <option value="3">Thursday</option>
+                        <option value="4">Friday</option>
+                        <option value="5">Saturday</option>
+                        <option value="6">Sunday</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Show Tier <span class="text-danger">*</span></label>
+                    <select name="tier" class="form-select" required>
+                        <option value="major">Major (Flagship Show)</option>
+                        <option value="minor">Minor (Secondary Show)</option>
+                    </select>
+                    <div class="form-text">
+                        Major shows are flagship programs like Raw or Nitro.
+                        Minor shows are secondary programs like Heat or Velocity.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Brand (Optional)</label>
+                    <select name="brand_id" class="form-select">
+                        <option value="">No Brand (All Rosters)</option>
+                        {% for brand in brands %}
+                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="form-text">
+                        Assign this show to a specific brand for roster/title exclusivity.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Runtime (Minutes)</label>
+                    <select name="runtime" class="form-select">
+                        <option value="60">1 Hour</option>
+                        <option value="120" selected>2 Hours</option>
+                        <option value="180">3 Hours</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Match Slots</label>
+                    <input type="number" name="match_slots" class="form-control"
+                           value="5" min="2" max="10">
+                    <div class="form-text">Number of matches per episode.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Segment Slots</label>
+                    <input type="number" name="segment_slots" class="form-control"
+                           value="3" min="0" max="6">
+                    <div class="form-text">Number of talking/promo segments.</div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-1"></i>Create Show
+                </button>
+                <a href="{{ url_for('weekly_shows') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

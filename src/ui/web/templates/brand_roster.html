@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}{{ brand.name }} Roster{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0" style="color: {{ brand.color }};">
+        <i class="bi bi-people me-2"></i>{{ brand.name }}
+    </h2>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('assign_wrestlers', brand_id=brand.id) }}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i>Add Wrestlers
+        </a>
+        <a href="{{ url_for('assign_titles', brand_id=brand.id) }}" class="btn btn-outline-primary">
+            <i class="bi bi-trophy me-1"></i>Add Titles
+        </a>
+        <a href="{{ url_for('brands') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back
+        </a>
+    </div>
+</div>
+
+<!-- Brand Titles -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="bi bi-trophy-fill me-2 text-warning"></i>Brand Titles</h5>
+    </div>
+    <div class="card-body">
+        {% if titles %}
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Current Champion</th>
+                        <th>Prestige</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for title in titles %}
+                    <tr>
+                        <td class="fw-bold">{{ title.name }}</td>
+                        <td>
+                            {% if title.current_holder_id %}
+                            {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                            {% if holder %}
+                            <a href="{{ url_for('wrestler_profile', wrestler_id=holder.id) }}">{{ holder.name }}</a>
+                            {% else %}
+                            Unknown
+                            {% endif %}
+                            {% else %}
+                            <span class="text-muted">Vacant</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ title.prestige }}</td>
+                        <td>
+                            <form action="{{ url_for('remove_title_from_brand', brand_id=brand.id, title_id=title.id) }}"
+                                  method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Remove this title from the brand?');">
+                                    <i class="bi bi-x"></i> Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">No titles assigned to this brand.
+            <a href="{{ url_for('assign_titles', brand_id=brand.id) }}">Assign titles</a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Brand Roster -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>Roster ({{ roster|length }} wrestlers)</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if roster %}
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Overall</th>
+                        <th>Alignment</th>
+                        <th>Record</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wrestler in roster|sort(attribute='name') %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}" class="text-decoration-none">
+                                <strong>{{ wrestler.display_name }}</strong>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary">{{ wrestler.get_overall_rating() }}</span>
+                        </td>
+                        <td>
+                            {% if wrestler.alignment == 'Face' %}
+                            <span class="badge bg-success">Face</span>
+                            {% elif wrestler.alignment == 'Heel' %}
+                            <span class="badge bg-danger">Heel</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Tweener</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ wrestler.wins }}-{{ wrestler.losses }}</td>
+                        <td>
+                            <form action="{{ url_for('remove_wrestler_from_brand', brand_id=brand.id, wrestler_id=wrestler.id) }}"
+                                  method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Remove this wrestler from the brand?');">
+                                    <i class="bi bi-x"></i> Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted">
+            <p class="mb-2">No wrestlers assigned to this brand.</p>
+            <a href="{{ url_for('assign_wrestlers', brand_id=brand.id) }}" class="btn btn-primary">
+                <i class="bi bi-person-plus me-1"></i>Assign Wrestlers
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,600 @@
+{% extends "base.html" %}
+
+{% block title %}{{ wrestler.name }} - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-4">
+        <!-- Profile Card -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4 text-center">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1">Competitor Profile</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="mb-4 d-inline-block p-3 rounded-circle bg-light border">
+                    <i class="bi bi-person-circle text-secondary" style="font-size: 5rem;"></i>
+                </div>
+                <h2 class="fw-bold text-dark mb-1">{{ wrestler.name }}</h2>
+                {% if wrestler.nickname %}
+                <p class="text-muted fst-italic mb-2">"{{ wrestler.nickname }}"</p>
+                {% endif %}
+
+                <!-- Fighting Style Badges -->
+                <div class="mb-3">
+                    <span class="badge bg-dark text-uppercase me-1">{{ wrestler.primary_style | replace('_', ' ') }}</span>
+                    {% if wrestler.secondary_style %}
+                    <span class="badge bg-secondary text-uppercase">{{ wrestler.secondary_style | replace('_', ' ') }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <span class="badge rounded-pill {% if wrestler.alignment == 'Face' %}badge-face{% elif wrestler.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %} fs-6 px-4">
+                        {{ wrestler.alignment }}
+                    </span>
+                </div>
+
+                <!-- Tier Badge -->
+                <div class="mb-4">
+                    <span class="badge bg-info text-uppercase">{{ wrestler.get_tier() }}</span>
+                </div>
+
+                <div class="row g-3 text-start bg-light rounded p-3">
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">AGE</small>
+                        <span class="fw-bold">{{ wrestler.age }}</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">REGION</small>
+                        <span class="fw-bold">{{ wrestler.region }}</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">HEIGHT</small>
+                        <span class="fw-bold">{{ wrestler.height // 12 }}'{{ wrestler.height % 12 }}"</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">WEIGHT</small>
+                        <span class="fw-bold">{{ wrestler.weight }} lbs</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">RECORD</small>
+                        <span class="fw-bold">{{ wrestler.wins }}W - {{ wrestler.losses }}L</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted fw-bold d-block small" style="font-size: 0.65rem;">OVERALL</small>
+                        <span class="fw-bold text-primary fs-5">{{ wrestler.get_overall_rating() }}</span>
+                    </div>
+                    <div class="col-12 border-top pt-2 mt-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted fw-bold small" style="font-size: 0.65rem;">APPEARANCE FEE</small>
+                            <span class="fw-bold text-success">${{ "{:,.0f}".format(wrestler.contract.per_appearance_fee) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% if wrestler.has_mitb_briefcase %}
+                <div class="mt-4">
+                    <span class="badge badge-champion w-100 py-3 shadow-sm">
+                        <i class="bi bi-briefcase-fill me-2"></i>MONEY IN THE BANK HOLDER
+                    </span>
+                </div>
+                {% endif %}
+
+                {% if titles_held %}
+                <div class="mt-3">
+                    {% for title in titles_held %}
+                    <div class="badge badge-champion w-100 py-2 mb-2 shadow-sm">
+                        <i class="bi bi-award-fill me-2"></i>{{ title.name }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-heart-pulse me-2"></i>Current Status</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                        <span>HEAT</span>
+                        <span>{{ wrestler.heat }}</span>
+                    </div>
+                    <div class="stat-bar bg-light" style="height: 8px;">
+                        <div class="stat-bar-fill {% if wrestler.heat >= 80 %}stat-high{% elif wrestler.heat >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ wrestler.heat }}%;"></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                        <span>MORALE</span>
+                        <span>{{ wrestler.morale }}</span>
+                    </div>
+                    <div class="stat-bar bg-light" style="height: 8px;">
+                        <div class="stat-bar-fill {% if wrestler.morale >= 80 %}stat-high{% elif wrestler.morale >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ wrestler.morale }}%;"></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                        <span>STAMINA</span>
+                        <span>{{ wrestler.stamina }}%</span>
+                    </div>
+                    <div class="stat-bar bg-light" style="height: 8px;">
+                        <div class="stat-bar-fill {% if wrestler.stamina >= 80 %}stat-high{% elif wrestler.stamina >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ wrestler.stamina }}%;"></div>
+                    </div>
+                </div>
+
+                <div class="mb-0">
+                    <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                        <span>CONDITION</span>
+                        <span>{{ wrestler.condition }}%</span>
+                    </div>
+                    <div class="stat-bar bg-light" style="height: 8px;">
+                        <div class="stat-bar-fill {% if wrestler.condition >= 80 %}stat-high{% elif wrestler.condition >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ wrestler.condition }}%;"></div>
+                    </div>
+                </div>
+                {% if wrestler.is_injured %}
+                <div class="mt-3">
+                    <span class="badge bg-danger w-100 py-2">
+                        <i class="bi bi-bandaid-fill me-2"></i>INJURED - {{ wrestler.injury_weeks_remaining }} WEEK{{ 'S' if wrestler.injury_weeks_remaining != 1 else '' }} REMAINING
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Special Moves Card -->
+        {% if wrestler.finishers or wrestler.signatures %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-lightning-fill me-2"></i>Special Moves</h5>
+            </div>
+            <div class="card-body p-4">
+                {% if wrestler.finishers %}
+                <div class="mb-3">
+                    <h6 class="text-danger fw-bold small text-uppercase mb-2">Finisher</h6>
+                    {% for move in wrestler.finishers %}
+                    <div class="d-flex justify-content-between align-items-center bg-light rounded p-2 mb-2">
+                        <span class="fw-bold">{{ move.name }}</span>
+                        <span class="badge bg-danger">{{ move.type | upper }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if wrestler.signatures %}
+                <div>
+                    <h6 class="text-warning fw-bold small text-uppercase mb-2">Signatures</h6>
+                    {% for move in wrestler.signatures %}
+                    <div class="d-flex justify-content-between align-items-center bg-light rounded p-2 mb-2">
+                        <span class="fw-bold">{{ move.name }}</span>
+                        <span class="badge bg-warning text-dark">{{ move.type | upper }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-8">
+        <!-- Physical Stats -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-heart-fill me-2"></i>Physical Attributes</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>STRENGTH</span>
+                            <span>{{ wrestler.strength }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.strength >= 80 %}stat-high{% elif wrestler.strength >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.strength }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>SPEED</span>
+                            <span>{{ wrestler.speed }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.speed >= 80 %}stat-high{% elif wrestler.speed >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.speed }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>AGILITY</span>
+                            <span>{{ wrestler.agility }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.agility >= 80 %}stat-high{% elif wrestler.agility >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.agility }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>DURABILITY</span>
+                            <span>{{ wrestler.durability }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.durability >= 80 %}stat-high{% elif wrestler.durability >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.durability }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>RECOVERY</span>
+                            <span>{{ wrestler.recovery }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.recovery >= 80 %}stat-high{% elif wrestler.recovery >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.recovery }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offense Stats -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-activity me-2"></i>Offensive Skills</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>STRIKING</span>
+                            <span>{{ wrestler.striking }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.striking >= 80 %}stat-high{% elif wrestler.striking >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.striking }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>GRAPPLING</span>
+                            <span>{{ wrestler.grappling }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.grappling >= 80 %}stat-high{% elif wrestler.grappling >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.grappling }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>SUBMISSION</span>
+                            <span>{{ wrestler.submission }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.submission >= 80 %}stat-high{% elif wrestler.submission >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.submission }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>HIGH FLYING</span>
+                            <span>{{ wrestler.high_flying }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.high_flying >= 80 %}stat-high{% elif wrestler.high_flying >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.high_flying }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>POWER MOVES</span>
+                            <span>{{ wrestler.power_moves }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.power_moves >= 80 %}stat-high{% elif wrestler.power_moves >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.power_moves }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>TECHNICAL</span>
+                            <span>{{ wrestler.technical }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.technical >= 80 %}stat-high{% elif wrestler.technical >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.technical }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>HARDCORE</span>
+                            <span>{{ wrestler.hardcore }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.hardcore >= 80 %}stat-high{% elif wrestler.hardcore >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.hardcore }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>DIRTY TACTICS</span>
+                            <span>{{ wrestler.dirty_tactics }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.dirty_tactics >= 80 %}stat-high{% elif wrestler.dirty_tactics >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.dirty_tactics }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Defense Stats -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-shield-fill me-2"></i>Defensive Skills</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>STRIKE DEFENSE</span>
+                            <span>{{ wrestler.strike_defense }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.strike_defense >= 80 %}stat-high{% elif wrestler.strike_defense >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.strike_defense }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>GRAPPLE DEFENSE</span>
+                            <span>{{ wrestler.grapple_defense }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.grapple_defense >= 80 %}stat-high{% elif wrestler.grapple_defense >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.grapple_defense }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>AERIAL DEFENSE</span>
+                            <span>{{ wrestler.aerial_defense }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.aerial_defense >= 80 %}stat-high{% elif wrestler.aerial_defense >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.aerial_defense }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>RING AWARENESS</span>
+                            <span>{{ wrestler.ring_awareness }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.ring_awareness >= 80 %}stat-high{% elif wrestler.ring_awareness >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.ring_awareness }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entertainment Stats -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-mic me-2"></i>Star Power & Entertainment</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>MIC SKILLS</span>
+                            <span>{{ wrestler.mic_skills }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.mic_skills >= 80 %}stat-high{% elif wrestler.mic_skills >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.mic_skills }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>CHARISMA</span>
+                            <span>{{ wrestler.charisma }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.charisma >= 80 %}stat-high{% elif wrestler.charisma >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.charisma }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>LOOK</span>
+                            <span>{{ wrestler.look }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.look >= 80 %}stat-high{% elif wrestler.look >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.look }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>STAR POWER</span>
+                            <span>{{ wrestler.star_power }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.star_power >= 80 %}stat-high{% elif wrestler.star_power >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.star_power }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>ENTRANCE</span>
+                            <span>{{ wrestler.entrance }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.entrance >= 80 %}stat-high{% elif wrestler.entrance >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.entrance }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intangibles -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-stars me-2"></i>Intangibles</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>PSYCHOLOGY</span>
+                            <span>{{ wrestler.psychology }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.psychology >= 80 %}stat-high{% elif wrestler.psychology >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.psychology }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>CONSISTENCY</span>
+                            <span>{{ wrestler.consistency }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.consistency >= 80 %}stat-high{% elif wrestler.consistency >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.consistency }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>BIG MATCH</span>
+                            <span>{{ wrestler.big_match }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.big_match >= 80 %}stat-high{% elif wrestler.big_match >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.big_match }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between small mb-2 fw-bold text-muted">
+                            <span>CLUTCH</span>
+                            <span>{{ wrestler.clutch }}</span>
+                        </div>
+                        <div class="stat-bar bg-light" style="height: 12px;">
+                            <div class="stat-bar-fill {% if wrestler.clutch >= 80 %}stat-high{% elif wrestler.clutch >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                                 style="width: {{ wrestler.clutch }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affiliations -->
+        <div class="row g-4 mb-4">
+            {% if feud %}
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                        <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-fire me-2 text-danger"></i>Active Feud</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        {% set opponent_id = feud.wrestler_b_id if feud.wrestler_a_id == wrestler.id else feud.wrestler_a_id %}
+                        {% set opponent = game.get_wrestler_by_id(opponent_id) %}
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger rounded-pill me-3">VS</span>
+                            <a href="{{ url_for('wrestler_profile', wrestler_id=opponent.id) }}" class="fw-bold text-dark fs-5 text-decoration-none">
+                                {{ opponent.name if opponent else 'Unknown' }}
+                            </a>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge rounded-pill {% if feud.intensity == 'blood' %}bg-danger{% elif feud.intensity == 'intense' %}bg-warning text-dark{% else %}bg-info{% endif %}">
+                                {{ feud.intensity.upper() }}
+                            </span>
+                            <span class="small text-muted fw-bold">{{ feud.matches_remaining }} MATCHES LEFT</span>
+                        </div>
+                        {% if feud.blowoff_match_scheduled %}
+                        <div class="mt-3">
+                            <span class="badge bg-danger w-100 py-2">BLOWOFF SCHEDULED</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if stable %}
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                        <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-shield me-2 text-info"></i>Stable</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold text-dark mb-2">{{ stable.name }}</h4>
+                        {% if stable.leader_id == wrestler.id %}
+                        <span class="badge badge-champion rounded-pill mb-2 px-3">STABLE LEADER</span>
+                        {% endif %}
+                        <p class="small text-muted fw-bold mb-0"><i class="bi bi-people-fill me-1"></i>{{ stable.member_ids|length }} MEMBERS</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Extended Records -->
+        {% if records %}
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                <h5 class="fw-bold mb-0 text-primary small text-uppercase ls-1"><i class="bi bi-bar-chart me-2"></i>Career Performance</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="bg-light p-3 rounded h-100 text-center">
+                            <h6 class="text-muted fw-bold small text-uppercase mb-2">Current Streak</h6>
+                            <p class="mb-0 fs-4 fw-bold">
+                                {% if records.current_streak > 0 %}
+                                <span class="text-success">{{ records.current_streak }}W</span>
+                                {% elif records.current_streak < 0 %}
+                                <span class="text-danger">{{ -records.current_streak }}L</span>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light p-3 rounded h-100 text-center">
+                            <h6 class="text-muted fw-bold small text-uppercase mb-2">Best Win Streak</h6>
+                            <p class="mb-0 fs-4 fw-bold text-primary">{{ records.longest_win_streak }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light p-3 rounded h-100 text-center">
+                            <h6 class="text-muted fw-bold small text-uppercase mb-2">PPV Record</h6>
+                            <p class="mb-0 fs-4 fw-bold text-dark">{{ records.ppv_wins }}W - {{ records.ppv_losses }}L</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4 mb-5">
+    <a href="{{ url_for('roster') }}" class="btn btn-outline-primary border-0 fw-bold">
+        <i class="bi bi-arrow-left me-2"></i>Return to Roster
+    </a>
+</div>
+{% endblock %}

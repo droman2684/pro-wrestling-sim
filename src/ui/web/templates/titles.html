@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Titles - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 fw-bold"><i class="bi bi-award-fill me-2 text-gold"></i>Championships</h2>
+    <a href="{{ url_for('create_title') }}" class="btn btn-gold shadow-sm">
+        <i class="bi bi-plus-circle me-1"></i>Create Title
+    </a>
+</div>
+
+<div class="row g-4">
+    {% for title in titles %}
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100 border-0 shadow-sm overflow-hidden">
+            <div class="card-header border-bottom-0 pt-4 px-4 pb-0 bg-white">
+                <h5 class="mb-0 fw-bold text-center text-primary">{{ title.name }}</h5>
+            </div>
+            <div class="card-body px-4">
+                <div class="text-center mb-4 mt-2">
+                    <div class="d-inline-block" style="width: 180px;">
+                        <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Strap -->
+                            <path d="M10 25 C 10 25, 50 20, 100 20 C 150 20, 190 25, 190 25 L 190 55 C 190 55, 150 60, 100 60 C 50 60, 10 55, 10 55 Z" fill="#1a1a1a" />
+                            <!-- Side Plates -->
+                            <rect x="45" y="28" width="20" height="24" rx="2" fill="#DAA520" stroke="#b8860b" stroke-width="1" />
+                            <rect x="135" y="28" width="20" height="24" rx="2" fill="#DAA520" stroke="#b8860b" stroke-width="1" />
+                            <!-- Main Plate -->
+                            <path d="M75 15 L125 15 L135 40 L125 65 L75 65 L65 40 Z" fill="#FFD700" stroke="#b8860b" stroke-width="2" />
+                            <!-- Center Emblem -->
+                            <circle cx="100" cy="40" r="12" fill="none" stroke="#b8860b" stroke-width="1" />
+                            <path d="M100 30 L103 37 L110 37 L105 42 L107 49 L100 45 L93 49 L95 42 L90 37 L97 37 Z" fill="#b8860b" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between small mb-1 fw-bold text-muted">
+                        <span>PRESTIGE</span>
+                        <span>{{ title.prestige }}</span>
+                    </div>
+                    <div class="stat-bar bg-light" style="height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div class="stat-bar-fill {% if title.prestige >= 80 %}bg-success{% elif title.prestige >= 50 %}bg-warning{% else %}bg-danger{% endif %}"
+                             style="width: {{ title.prestige }}%; height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="text-center p-3 rounded bg-light border">
+                    <p class="text-muted small text-uppercase fw-bold mb-1" style="font-size: 0.7rem; letter-spacing: 1px;">Current Champion</p>
+                    {% if title.current_holder_id %}
+                    {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                    {% if holder %}
+                    <a href="{{ url_for('wrestler_profile', wrestler_id=holder.id) }}"
+                       class="text-decoration-none fs-5 fw-bold text-dark stretched-link">
+                        {{ holder.name }}
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <span class="fs-5 text-muted fst-italic">VACANT</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top-0 px-4 pb-4 pt-0">
+                <a href="{{ url_for('title_history', title_id=title.id) }}" class="btn btn-outline-primary w-100 position-relative z-1 btn-sm">
+                    View Title History
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <div class="mb-4 opacity-25">
+                <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" width="200" height="80">
+                    <path d="M10 25 C 10 25, 50 20, 100 20 C 150 20, 190 25, 190 25 L 190 55 C 190 55, 150 60, 100 60 C 50 60, 10 55, 10 55 Z" fill="#666" />
+                    <path d="M75 15 L125 15 L135 40 L125 65 L75 65 L65 40 Z" fill="#999" />
+                </svg>
+            </div>
+            <h4 class="text-muted mb-3">No championships created yet</h4>
+            <a href="{{ url_for('create_title') }}" class="btn btn-gold btn-lg shadow-sm">Create Your First Title</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

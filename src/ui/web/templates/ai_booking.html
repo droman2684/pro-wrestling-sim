@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}AI Booking - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="color: var(--gold);"><i class="bi bi-robot me-2"></i>AI Card Suggestions</h2>
+    <div>
+        {% if suggestions.is_ppv %}
+        <span class="badge bg-danger fs-6">PPV</span>
+        {% else %}
+        <span class="badge bg-secondary fs-6">TV Show</span>
+        {% endif %}
+        {% if selected_show and selected_show.brand_id %}
+        {% for brand in game.get_active_brands() %}
+        {% if brand.id == selected_show.brand_id %}
+        <span class="badge ms-2" style="background-color: {{ brand.color }}; font-size: 0.9rem;">
+            {{ brand.name }} Roster
+        </span>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-calendar-event me-2"></i>{{ suggestions.show_name }}
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('apply_ai_booking') }}" method="post">
+                    <p class="text-muted mb-3">Select the matches you want to include:</p>
+
+                    {% for match in suggestions.matches %}
+                    <div class="match-card {% if match.is_title_match %}title-match{% endif %}">
+                        <div class="form-check">
+                            <input type="checkbox" name="matches" value="{{ loop.index0 }}"
+                                   class="form-check-input" id="match{{ loop.index0 }}" checked>
+                            <label class="form-check-label w-100" for="match{{ loop.index0 }}">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <span class="badge bg-secondary me-2">{{ loop.index }}</span>
+
+                                        {% if match.match_type == 'singles' %}
+                                        {% set w1 = game.get_wrestler_by_id(match.participant_ids[0]) %}
+                                        {% set w2 = game.get_wrestler_by_id(match.participant_ids[1]) %}
+                                        <strong>{{ w1.name if w1 else '?' }}</strong>
+                                        <span class="vs-text mx-2">vs</span>
+                                        <strong>{{ w2.name if w2 else '?' }}</strong>
+
+                                        {% elif match.match_type == 'tag' %}
+                                        {% set t1 = game.get_tag_team_by_id(match.participant_ids[0]) %}
+                                        {% set t2 = game.get_tag_team_by_id(match.participant_ids[1]) %}
+                                        <strong>{{ t1.name if t1 else '?' }}</strong>
+                                        <span class="vs-text mx-2">vs</span>
+                                        <strong>{{ t2.name if t2 else '?' }}</strong>
+
+                                        {% else %}
+                                        {% for pid in match.participant_ids %}
+                                        {% set w = game.get_wrestler_by_id(pid) %}
+                                        <strong>{{ w.name if w else '?' }}</strong>{% if not loop.last %} vs {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="text-end">
+                                        {% if match.match_type == 'singles' %}
+                                        <span class="badge bg-info">Singles</span>
+                                        {% elif match.match_type == 'tag' %}
+                                        <span class="badge bg-info">Tag Team</span>
+                                        {% elif match.match_type == 'triple_threat' %}
+                                        <span class="badge bg-warning text-dark">Triple Threat</span>
+                                        {% elif match.match_type == 'fatal_four_way' %}
+                                        <span class="badge bg-warning text-dark">Fatal 4-Way</span>
+                                        {% elif match.match_type == 'ladder' %}
+                                        <span class="badge bg-warning text-dark">Ladder</span>
+                                        {% elif match.match_type == 'iron_man' %}
+                                        <span class="badge bg-danger">Iron Man</span>
+                                        {% elif match.match_type == 'chamber' %}
+                                        <span class="badge bg-danger">Chamber</span>
+                                        {% elif match.match_type == 'mitb' %}
+                                        <span class="badge badge-champion">MITB</span>
+                                        {% endif %}
+
+                                        {% if match.is_title_match %}
+                                        {% set title = game.get_title_by_id(match.title_id) %}
+                                        <span class="badge badge-champion">{{ title.name if title else 'Title' }}</span>
+                                        {% endif %}
+
+                                        {% if match.is_steel_cage %}
+                                        <span class="badge bg-secondary">Steel Cage</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                {% if match.reason %}
+                                <small class="text-muted d-block mt-2">
+                                    <i class="bi bi-info-circle me-1"></i>{{ match.reason }}
+                                </small>
+                                {% endif %}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-gold btn-lg">
+                            <i class="bi bi-check-circle me-1"></i>Apply Selected Matches
+                        </button>
+                        <a href="{{ url_for('ai_booking') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Regenerate
+                        </a>
+                        <a href="{{ url_for('booking') }}" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-x-circle me-1"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        {% if suggestions.feud_suggestions %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-fire me-2"></i>Suggested Feuds
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">AI suggests starting these feuds:</p>
+                {% for feud in suggestions.feud_suggestions %}
+                {% set w1 = game.get_wrestler_by_id(feud.wrestler_a_id) %}
+                {% set w2 = game.get_wrestler_by_id(feud.wrestler_b_id) %}
+                <div class="info-box mb-3">
+                    <strong>{{ w1.name if w1 else '?' }}</strong>
+                    <span class="vs-text mx-2">vs</span>
+                    <strong>{{ w2.name if w2 else '?' }}</strong>
+                    <br><small class="text-muted">{{ feud.reason }}</small>
+                </div>
+                {% endfor %}
+                <a href="{{ url_for('create_feud') }}" class="btn btn-sm btn-outline-light">Start a Feud</a>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if suggestions.warnings %}
+        <div class="card">
+            <div class="card-header text-warning">
+                <i class="bi bi-exclamation-triangle me-2"></i>Warnings
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for warning in suggestions.warnings %}
+                    <li class="mb-2">
+                        <i class="bi bi-exclamation-circle text-warning me-1"></i>
+                        {{ warning }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar - {{ calendar.month_name }} Year {{ calendar.year }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3">
+        <a href="{{ url_for('calendar_view', year=prev_year, month=prev_month) }}"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-chevron-left"></i>
+        </a>
+        <h2 class="mb-0">
+            <i class="bi bi-calendar3 me-2 text-warning"></i>
+            {{ calendar.month_name }} - Year {{ calendar.year }}
+        </h2>
+        <a href="{{ url_for('calendar_view', year=next_year, month=next_month) }}"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('ppv_settings') }}" class="btn btn-outline-warning">
+            <i class="bi bi-trophy-fill me-1"></i>PPV Settings
+        </a>
+        <a href="{{ url_for('create_weekly_show') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>Create Weekly Show
+        </a>
+    </div>
+</div>
+
+<!-- Calendar Legend -->
+<div class="d-flex gap-3 mb-4 flex-wrap">
+    <span class="badge bg-danger">Major Show</span>
+    <span class="badge bg-secondary">Minor Show</span>
+    <span class="badge bg-warning text-dark">PPV</span>
+    {% for brand in brands %}
+    <span class="badge" style="background-color: {{ brand.color }};">{{ brand.short_name }}</span>
+    {% endfor %}
+</div>
+
+<!-- Calendar Grid -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-0">
+        <table class="table table-bordered mb-0">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th class="text-center" style="width: 5%;">Week</th>
+                    <th style="width: 13.5%;">Monday</th>
+                    <th style="width: 13.5%;">Tuesday</th>
+                    <th style="width: 13.5%;">Wednesday</th>
+                    <th style="width: 13.5%;">Thursday</th>
+                    <th style="width: 13.5%;">Friday</th>
+                    <th style="width: 13.5%;">Saturday</th>
+                    <th style="width: 13.5%;">Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in calendar.weeks %}
+                <tr class="{% if week.is_current_week %}table-warning{% endif %}">
+                    <td class="text-center align-middle bg-light">
+                        <strong>{{ week.week_number }}</strong>
+                        {% if week.is_current_week %}
+                        <br><small class="text-success fw-bold">NOW</small>
+                        {% endif %}
+                    </td>
+                    {% for day in week.days %}
+                    <td class="p-2" style="vertical-align: top; min-height: 100px;">
+                        {% for show in day.shows %}
+                        <div class="mb-1 p-2 rounded border-start border-3
+                            {% if show.tier.value == 'ppv' %}bg-warning bg-opacity-25 border-warning
+                            {% elif show.tier.value == 'major' %}bg-danger bg-opacity-10 border-danger
+                            {% else %}bg-secondary bg-opacity-10 border-secondary{% endif %}">
+
+                            <div class="d-flex justify-content-between align-items-start">
+                                <strong class="small">{{ show.name }}</strong>
+                                {% if show.is_completed %}
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                {% elif show.is_booked %}
+                                <i class="bi bi-calendar-check text-info"></i>
+                                {% endif %}
+                            </div>
+
+                            {% if show.show_type == 'ppv' %}
+                            <span class="badge bg-warning text-dark mt-1" style="font-size: 0.65rem;">
+                                {{ show.ppv_tier }}
+                            </span>
+                            {% endif %}
+
+                            {% if show.brand_id %}
+                            {% for brand in brands %}
+                            {% if brand.id == show.brand_id %}
+                            <span class="badge mt-1" style="background-color: {{ brand.color }}; font-size: 0.6rem;">
+                                {{ brand.short_name }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <div class="text-muted small text-center py-3">
+                            -
+                        </div>
+                        {% endfor %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Upcoming Shows List -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>Upcoming Shows</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="bg-light">
+                <tr>
+                    <th>Show</th>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Brand</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for show in upcoming_shows %}
+                <tr>
+                    <td>
+                        <strong>{{ show.name }}</strong>
+                        {% if show.show_type == 'ppv' %}
+                        <span class="badge bg-warning text-dark ms-2">PPV</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ show.day_of_week.name|capitalize }}</td>
+                    <td>Week {{ show.week }}, Month {{ show.month }}, Year {{ show.year }}</td>
+                    <td>
+                        {% if show.brand_id %}
+                        {% for brand in brands %}
+                        {% if brand.id == show.brand_id %}
+                        <span class="badge" style="background-color: {{ brand.color }};">
+                            {{ brand.short_name }}
+                        </span>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <span class="text-muted">All Brands</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if show.is_completed %}
+                        <span class="badge bg-success">Completed</span>
+                        {% elif show.is_booked %}
+                        <span class="badge bg-info">Booked</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        No upcoming shows. <a href="{{ url_for('create_weekly_show') }}">Create a weekly show</a> to populate the calendar.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

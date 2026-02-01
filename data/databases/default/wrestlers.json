@@ -1,0 +1,3547 @@
+[
+    {
+        "id": 1,
+        "name": "Stone Cold Steve Austin",
+        "nickname": "The Texas Rattlesnake",
+        "billing_name": "Stone Cold",
+        "bio": {
+            "age": 34,
+            "height": 74,
+            "weight": 252,
+            "home_region": "Victoria, TX",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 85,
+            "speed": 75,
+            "agility": 70,
+            "durability": 92,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 95,
+            "grappling": 88,
+            "submission": 85,
+            "high_flying": 45,
+            "hardcore": 90,
+            "power_moves": 85,
+            "technical": 82,
+            "dirty_tactics": 75
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 85,
+            "aerial_defense": 78,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 99,
+            "charisma": 99,
+            "look": 90,
+            "star_power": 100,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 98,
+            "consistency": 90,
+            "big_match": 99,
+            "clutch": 98
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Stone Cold Stunner", "type": "strike", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Lou Thesz Press", "type": "strike", "damage": 65},
+                {"name": "Mudhole Stomps", "type": "strike", "damage": 55}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 100,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 10000}
+    },
+    {
+        "id": 2,
+        "name": "The Rock",
+        "nickname": "The Great One",
+        "billing_name": "The People's Champion",
+        "bio": {
+            "age": 28,
+            "height": 77,
+            "weight": 260,
+            "home_region": "Miami, FL",
+            "years_active": 6
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 78,
+            "agility": 75,
+            "durability": 85,
+            "stamina": 90,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 90,
+            "grappling": 82,
+            "submission": 75,
+            "high_flying": 55,
+            "hardcore": 72,
+            "power_moves": 85,
+            "technical": 78,
+            "dirty_tactics": 65
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 80,
+            "aerial_defense": 75,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 100,
+            "charisma": 100,
+            "look": 95,
+            "star_power": 100,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 88,
+            "big_match": 98,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Rock Bottom", "type": "power", "damage": 92},
+                {"name": "People's Elbow", "type": "strike", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Spinebuster", "type": "power", "damage": 70},
+                {"name": "Sharpshooter", "type": "submission", "damage": 75}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 100,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 10000}
+    },
+    {
+        "id": 3,
+        "name": "Hulk Hogan",
+        "nickname": "The Immortal",
+        "billing_name": "The Immortal Hulk Hogan",
+        "bio": {
+            "age": 32,
+            "height": 79,
+            "weight": 302,
+            "home_region": "Tampa, FL",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 88,
+            "speed": 45,
+            "agility": 35,
+            "durability": 92,
+            "stamina": 80,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 75,
+            "grappling": 70,
+            "submission": 45,
+            "high_flying": 20,
+            "hardcore": 65,
+            "power_moves": 85,
+            "technical": 45,
+            "dirty_tactics": 40
+        },
+        "defense": {
+            "strike_defense": 80,
+            "grapple_defense": 75,
+            "aerial_defense": 70,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 98,
+            "look": 95,
+            "star_power": 100,
+            "entrance": 100
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 85,
+            "big_match": 98,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Leg Drop", "type": "aerial", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Big Boot", "type": "strike", "damage": 70},
+                {"name": "Hulk Up", "type": "taunt", "damage": 0}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 100,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 10000}
+    },
+    {
+        "id": 4,
+        "name": "Ric Flair",
+        "nickname": "The Nature Boy",
+        "billing_name": "The Dirtiest Player in the Game",
+        "bio": {
+            "age": 36,
+            "height": 73,
+            "weight": 243,
+            "home_region": "Charlotte, NC",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 70,
+            "speed": 75,
+            "agility": 78,
+            "durability": 88,
+            "stamina": 95,
+            "recovery": 85
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 92,
+            "submission": 95,
+            "high_flying": 55,
+            "hardcore": 60,
+            "power_moves": 65,
+            "technical": 98,
+            "dirty_tactics": 95
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 92,
+            "aerial_defense": 80,
+            "ring_awareness": 99
+        },
+        "entertainment": {
+            "mic_skills": 98,
+            "charisma": 98,
+            "look": 88,
+            "star_power": 95,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 100,
+            "consistency": 92,
+            "big_match": 98,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "showman"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Figure Four Leglock", "type": "submission", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Knife Edge Chop", "type": "strike", "damage": 55},
+                {"name": "Knee Drop", "type": "strike", "damage": 50}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 8000}
+    },
+    {
+        "id": 5,
+        "name": "The Undertaker",
+        "nickname": "The Deadman",
+        "billing_name": "The Phenom",
+        "bio": {
+            "age": 33,
+            "height": 82,
+            "weight": 309,
+            "home_region": "Death Valley",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 90,
+            "speed": 65,
+            "agility": 70,
+            "durability": 95,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 85,
+            "submission": 82,
+            "high_flying": 75,
+            "hardcore": 88,
+            "power_moves": 92,
+            "technical": 78,
+            "dirty_tactics": 60
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 85,
+            "aerial_defense": 82,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 85,
+            "charisma": 95,
+            "look": 100,
+            "star_power": 98,
+            "entrance": 100
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 92,
+            "big_match": 100,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Tombstone Piledriver", "type": "power", "damage": 95},
+                {"name": "Chokeslam", "type": "power", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Old School", "type": "aerial", "damage": 65},
+                {"name": "Snake Eyes", "type": "power", "damage": 60}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 98,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 8000}
+    },
+    {
+        "id": 6,
+        "name": "Shawn Michaels",
+        "nickname": "The Heartbreak Kid",
+        "billing_name": "The Showstopper",
+        "bio": {
+            "age": 32,
+            "height": 72,
+            "weight": 225,
+            "home_region": "San Antonio, TX",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 65,
+            "speed": 92,
+            "agility": 95,
+            "durability": 75,
+            "stamina": 90,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 90,
+            "submission": 82,
+            "high_flying": 98,
+            "hardcore": 70,
+            "power_moves": 65,
+            "technical": 95,
+            "dirty_tactics": 70
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 88,
+            "aerial_defense": 92,
+            "ring_awareness": 98
+        },
+        "entertainment": {
+            "mic_skills": 92,
+            "charisma": 96,
+            "look": 92,
+            "star_power": 94,
+            "entrance": 100
+        },
+        "intangibles": {
+            "psychology": 100,
+            "consistency": 88,
+            "big_match": 100,
+            "clutch": 98
+        },
+        "styles": {
+            "primary": "high_flyer",
+            "secondary": "showman"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Sweet Chin Music", "type": "strike", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Flying Elbow Drop", "type": "aerial", "damage": 75},
+                {"name": "Kip-Up", "type": "taunt", "damage": 0}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 8000}
+    },
+    {
+        "id": 7,
+        "name": "Bret Hart",
+        "nickname": "The Hitman",
+        "billing_name": "The Excellence of Execution",
+        "bio": {
+            "age": 38,
+            "height": 72,
+            "weight": 234,
+            "home_region": "Calgary, AB",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 78,
+            "agility": 75,
+            "durability": 88,
+            "stamina": 92,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 95,
+            "submission": 98,
+            "high_flying": 72,
+            "hardcore": 58,
+            "power_moves": 72,
+            "technical": 99,
+            "dirty_tactics": 45
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 95,
+            "aerial_defense": 82,
+            "ring_awareness": 98
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 88,
+            "look": 82,
+            "star_power": 92,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 98,
+            "consistency": 98,
+            "big_match": 98,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "submission"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Sharpshooter", "type": "submission", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Russian Leg Sweep", "type": "technical", "damage": 65},
+                {"name": "Backbreaker", "type": "power", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 8,
+        "name": "John Cena",
+        "nickname": "The Champ",
+        "billing_name": "The Face That Runs The Place",
+        "bio": {
+            "age": 30,
+            "height": 73,
+            "weight": 251,
+            "home_region": "West Newbury, MA",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 72,
+            "agility": 68,
+            "durability": 95,
+            "stamina": 95,
+            "recovery": 90
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 82,
+            "submission": 80,
+            "high_flying": 50,
+            "hardcore": 75,
+            "power_moves": 90,
+            "technical": 72,
+            "dirty_tactics": 35
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 85,
+            "aerial_defense": 78,
+            "ring_awareness": 90
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 95,
+            "look": 92,
+            "star_power": 99,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 88,
+            "consistency": 95,
+            "big_match": 98,
+            "clutch": 98
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "showman"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Attitude Adjustment", "type": "power", "damage": 92},
+                {"name": "STF", "type": "submission", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Five Knuckle Shuffle", "type": "strike", "damage": 60},
+                {"name": "Shoulder Tackles", "type": "strike", "damage": 55}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 98,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 9000}
+    },
+    {
+        "id": 9,
+        "name": "Andre The Giant",
+        "nickname": "The Eighth Wonder",
+        "billing_name": "The Eighth Wonder of the World",
+        "bio": {
+            "age": 35,
+            "height": 87,
+            "weight": 520,
+            "home_region": "Grenoble, France",
+            "years_active": 18
+        },
+        "physical": {
+            "strength": 98,
+            "speed": 25,
+            "agility": 15,
+            "durability": 95,
+            "stamina": 45,
+            "recovery": 40
+        },
+        "offense": {
+            "striking": 80,
+            "grappling": 75,
+            "submission": 50,
+            "high_flying": 5,
+            "hardcore": 72,
+            "power_moves": 95,
+            "technical": 50,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 92,
+            "aerial_defense": 90,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 65,
+            "charisma": 85,
+            "look": 100,
+            "star_power": 98,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 85,
+            "consistency": 72,
+            "big_match": 95,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": null
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Double Underhook Suplex", "type": "power", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "Big Boot", "type": "strike", "damage": 72},
+                {"name": "Headbutt", "type": "strike", "damage": 58}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 98,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 8000}
+    },
+    {
+        "id": 10,
+        "name": "Randy Savage",
+        "nickname": "Macho Man",
+        "billing_name": "The Macho Man Randy Savage",
+        "bio": {
+            "age": 35,
+            "height": 73,
+            "weight": 237,
+            "home_region": "Sarasota, FL",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 78,
+            "speed": 82,
+            "agility": 85,
+            "durability": 82,
+            "stamina": 88,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 85,
+            "submission": 72,
+            "high_flying": 92,
+            "hardcore": 75,
+            "power_moves": 78,
+            "technical": 85,
+            "dirty_tactics": 60
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 80,
+            "aerial_defense": 85,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 98,
+            "charisma": 97,
+            "look": 92,
+            "star_power": 95,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 90,
+            "big_match": 95,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "high_flyer"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Flying Elbow Drop", "type": "aerial", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Double Axe Handle", "type": "aerial", "damage": 68},
+                {"name": "Scoop Slam", "type": "power", "damage": 55}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 11,
+        "name": "Bruno Sammartino",
+        "nickname": "The Living Legend",
+        "billing_name": "The Italian Superman",
+        "bio": {
+            "age": 32,
+            "height": 71,
+            "weight": 265,
+            "home_region": "Pittsburgh, PA",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 95,
+            "speed": 65,
+            "agility": 55,
+            "durability": 95,
+            "stamina": 92,
+            "recovery": 85
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 92,
+            "submission": 88,
+            "high_flying": 35,
+            "hardcore": 70,
+            "power_moves": 92,
+            "technical": 85,
+            "dirty_tactics": 30
+        },
+        "defense": {
+            "strike_defense": 90,
+            "grapple_defense": 92,
+            "aerial_defense": 78,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 72,
+            "charisma": 85,
+            "look": 88,
+            "star_power": 96,
+            "entrance": 82
+        },
+        "intangibles": {
+            "psychology": 92,
+            "consistency": 95,
+            "big_match": 95,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Bearhug", "type": "submission", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Backbreaker", "type": "power", "damage": 70},
+                {"name": "Dropkick", "type": "strike", "damage": 58}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 12,
+        "name": "Triple H",
+        "nickname": "The Game",
+        "billing_name": "The Cerebral Assassin",
+        "bio": {
+            "age": 34,
+            "height": 76,
+            "weight": 255,
+            "home_region": "Greenwich, CT",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 88,
+            "speed": 72,
+            "agility": 68,
+            "durability": 90,
+            "stamina": 90,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 88,
+            "submission": 82,
+            "high_flying": 50,
+            "hardcore": 85,
+            "power_moves": 88,
+            "technical": 88,
+            "dirty_tactics": 90
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 88,
+            "aerial_defense": 80,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 92,
+            "charisma": 92,
+            "look": 90,
+            "star_power": 93,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 92,
+            "big_match": 95,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Pedigree", "type": "power", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Spinebuster", "type": "power", "damage": 72},
+                {"name": "Knee Facebuster", "type": "strike", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 93,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 13,
+        "name": "Eddie Guerrero",
+        "nickname": "Latino Heat",
+        "billing_name": "Lie, Cheat, Steal",
+        "bio": {
+            "age": 36,
+            "height": 70,
+            "weight": 228,
+            "home_region": "El Paso, TX",
+            "years_active": 18
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 88,
+            "agility": 92,
+            "durability": 78,
+            "stamina": 88,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 92,
+            "submission": 90,
+            "high_flying": 95,
+            "hardcore": 78,
+            "power_moves": 72,
+            "technical": 95,
+            "dirty_tactics": 98
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 88,
+            "aerial_defense": 90,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 96,
+            "look": 85,
+            "star_power": 88,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 98,
+            "consistency": 88,
+            "big_match": 95,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "high_flyer"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Frog Splash", "type": "aerial", "damage": 95},
+                {"name": "Three Amigos", "type": "technical", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Tilt-a-Whirl Backbreaker", "type": "technical", "damage": 68},
+                {"name": "Tornado DDT", "type": "aerial", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 90,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 14,
+        "name": "Chris Jericho",
+        "nickname": "Y2J",
+        "billing_name": "The Ayatollah of Rock n Rolla",
+        "bio": {
+            "age": 32,
+            "height": 72,
+            "weight": 227,
+            "home_region": "Winnipeg, MB",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 85,
+            "agility": 88,
+            "durability": 82,
+            "stamina": 90,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 90,
+            "submission": 92,
+            "high_flying": 88,
+            "hardcore": 72,
+            "power_moves": 70,
+            "technical": 92,
+            "dirty_tactics": 75
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 88,
+            "aerial_defense": 85,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 98,
+            "charisma": 95,
+            "look": 85,
+            "star_power": 89,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 90,
+            "big_match": 92,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "high_flyer"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Walls of Jericho", "type": "submission", "damage": 92},
+                {"name": "Codebreaker", "type": "strike", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "Lionsault", "type": "aerial", "damage": 78},
+                {"name": "Missile Dropkick", "type": "aerial", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 90,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 15,
+        "name": "Kurt Angle",
+        "nickname": "The Olympic Hero",
+        "billing_name": "The Wrestling Machine",
+        "bio": {
+            "age": 32,
+            "height": 72,
+            "weight": 240,
+            "home_region": "Pittsburgh, PA",
+            "years_active": 6
+        },
+        "physical": {
+            "strength": 88,
+            "speed": 82,
+            "agility": 78,
+            "durability": 85,
+            "stamina": 92,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 98,
+            "submission": 98,
+            "high_flying": 70,
+            "hardcore": 68,
+            "power_moves": 88,
+            "technical": 99,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 98,
+            "aerial_defense": 82,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 88,
+            "charisma": 90,
+            "look": 85,
+            "star_power": 90,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 92,
+            "big_match": 98,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "submission"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Ankle Lock", "type": "submission", "damage": 95},
+                {"name": "Angle Slam", "type": "power", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "German Suplex", "type": "technical", "damage": 75},
+                {"name": "Moonsault", "type": "aerial", "damage": 78}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 90,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 16,
+        "name": "Mick Foley",
+        "nickname": "The Hardcore Legend",
+        "billing_name": "Mrs. Foley's Baby Boy",
+        "bio": {
+            "age": 33,
+            "height": 74,
+            "weight": 287,
+            "home_region": "Long Island, NY",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 78,
+            "speed": 55,
+            "agility": 50,
+            "durability": 98,
+            "stamina": 88,
+            "recovery": 70
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 78,
+            "submission": 82,
+            "high_flying": 55,
+            "hardcore": 100,
+            "power_moves": 78,
+            "technical": 72,
+            "dirty_tactics": 85
+        },
+        "defense": {
+            "strike_defense": 75,
+            "grapple_defense": 78,
+            "aerial_defense": 70,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 94,
+            "look": 75,
+            "star_power": 91,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 82,
+            "big_match": 95,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "hardcore",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Mandible Claw", "type": "submission", "damage": 88},
+                {"name": "Double Arm DDT", "type": "technical", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Cactus Elbow", "type": "aerial", "damage": 72},
+                {"name": "Running Knee", "type": "strike", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 17,
+        "name": "Roddy Piper",
+        "nickname": "Rowdy",
+        "billing_name": "Hot Rod",
+        "bio": {
+            "age": 31,
+            "height": 72,
+            "weight": 230,
+            "home_region": "Glasgow, Scotland",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 75,
+            "speed": 78,
+            "agility": 72,
+            "durability": 85,
+            "stamina": 88,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 82,
+            "submission": 78,
+            "high_flying": 45,
+            "hardcore": 82,
+            "power_moves": 72,
+            "technical": 80,
+            "dirty_tactics": 92
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 80,
+            "aerial_defense": 75,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 100,
+            "charisma": 98,
+            "look": 82,
+            "star_power": 93,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 85,
+            "big_match": 90,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "showman"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Sleeper Hold", "type": "submission", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Eye Poke", "type": "dirty", "damage": 30},
+                {"name": "Bulldog", "type": "technical", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 93,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 18,
+        "name": "Dusty Rhodes",
+        "nickname": "The American Dream",
+        "billing_name": "The Son of a Plumber",
+        "bio": {
+            "age": 35,
+            "height": 74,
+            "weight": 275,
+            "home_region": "Austin, TX",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 62,
+            "agility": 55,
+            "durability": 88,
+            "stamina": 85,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 82,
+            "submission": 72,
+            "high_flying": 40,
+            "hardcore": 80,
+            "power_moves": 82,
+            "technical": 78,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 80,
+            "aerial_defense": 72,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 100,
+            "charisma": 99,
+            "look": 78,
+            "star_power": 94,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 88,
+            "big_match": 92,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Bionic Elbow", "type": "strike", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Dusty Punches", "type": "strike", "damage": 60},
+                {"name": "Figure Four Leglock", "type": "submission", "damage": 75}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 94,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 19,
+        "name": "AJ Styles",
+        "nickname": "The Phenomenal One",
+        "billing_name": "The Face That Runs The Place",
+        "bio": {
+            "age": 39,
+            "height": 71,
+            "weight": 218,
+            "home_region": "Gainesville, GA",
+            "years_active": 18
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 92,
+            "agility": 98,
+            "durability": 82,
+            "stamina": 90,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 90,
+            "grappling": 92,
+            "submission": 88,
+            "high_flying": 98,
+            "hardcore": 68,
+            "power_moves": 72,
+            "technical": 95,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 90,
+            "aerial_defense": 95,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 82,
+            "charisma": 88,
+            "look": 85,
+            "star_power": 87,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 95,
+            "big_match": 98,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "high_flyer",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Styles Clash", "type": "technical", "damage": 95},
+                {"name": "Phenomenal Forearm", "type": "aerial", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Pele Kick", "type": "strike", "damage": 72},
+                {"name": "Calf Crusher", "type": "submission", "damage": 78}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 88,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 20,
+        "name": "Randy Orton",
+        "nickname": "The Viper",
+        "billing_name": "The Legend Killer",
+        "bio": {
+            "age": 28,
+            "height": 77,
+            "weight": 245,
+            "home_region": "St. Louis, MO",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 80,
+            "speed": 82,
+            "agility": 78,
+            "durability": 88,
+            "stamina": 90,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 90,
+            "grappling": 88,
+            "submission": 78,
+            "high_flying": 65,
+            "hardcore": 72,
+            "power_moves": 82,
+            "technical": 88,
+            "dirty_tactics": 75
+        },
+        "defense": {
+            "strike_defense": 88,
+            "grapple_defense": 85,
+            "aerial_defense": 82,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 85,
+            "charisma": 90,
+            "look": 95,
+            "star_power": 91,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 92,
+            "consistency": 90,
+            "big_match": 92,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "RKO", "type": "strike", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Draping DDT", "type": "technical", "damage": 75},
+                {"name": "Powerslam", "type": "power", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 91,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 21,
+        "name": "Diesel",
+        "nickname": "Big Daddy Cool",
+        "billing_name": "Big Daddy Cool Diesel",
+        "bio": {
+            "age": 35,
+            "height": 83,
+            "weight": 328,
+            "home_region": "Detroit, MI",
+            "years_active": 5
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 55,
+            "agility": 40,
+            "durability": 88,
+            "stamina": 75,
+            "recovery": 70
+        },
+        "offense": {
+            "striking": 75,
+            "grappling": 72,
+            "submission": 55,
+            "high_flying": 25,
+            "hardcore": 70,
+            "power_moves": 92,
+            "technical": 55,
+            "dirty_tactics": 50
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 70,
+            "aerial_defense": 75,
+            "ring_awareness": 78
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 85,
+            "look": 92,
+            "star_power": 85,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 78,
+            "consistency": 82,
+            "big_match": 82,
+            "clutch": 78
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Jackknife Powerbomb", "type": "power", "damage": 94}
+            ],
+            "signatures": [
+                {"name": "Big Boot", "type": "strike", "damage": 68},
+                {"name": "Snake Eyes", "type": "power", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 85,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5000}
+    },
+    {
+        "id": 22,
+        "name": "Razor Ramon",
+        "nickname": "The Bad Guy",
+        "billing_name": "The Bad Guy",
+        "bio": {
+            "age": 34,
+            "height": 77,
+            "weight": 262,
+            "home_region": "Miami, FL",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 72,
+            "agility": 68,
+            "durability": 85,
+            "stamina": 82,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 80,
+            "grappling": 85,
+            "submission": 75,
+            "high_flying": 50,
+            "hardcore": 75,
+            "power_moves": 85,
+            "technical": 78,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 82,
+            "aerial_defense": 72,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 92,
+            "charisma": 95,
+            "look": 92,
+            "star_power": 90,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 90,
+            "consistency": 85,
+            "big_match": 88,
+            "clutch": 85
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Razor's Edge", "type": "power", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Fallaway Slam", "type": "power", "damage": 68},
+                {"name": "Chokeslam", "type": "power", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 90,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5000}
+    },
+    {
+        "id": 23,
+        "name": "Yokozuna",
+        "nickname": "The Sumo Champion",
+        "billing_name": "The Mighty Yokozuna",
+        "bio": {
+            "age": 27,
+            "height": 75,
+            "weight": 568,
+            "home_region": "Polynesia",
+            "years_active": 5
+        },
+        "physical": {
+            "strength": 95,
+            "speed": 30,
+            "agility": 20,
+            "durability": 95,
+            "stamina": 55,
+            "recovery": 50
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 72,
+            "submission": 50,
+            "high_flying": 10,
+            "hardcore": 70,
+            "power_moves": 95,
+            "technical": 55,
+            "dirty_tactics": 68
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 88,
+            "aerial_defense": 82,
+            "ring_awareness": 82
+        },
+        "entertainment": {
+            "mic_skills": 45,
+            "charisma": 80,
+            "look": 95,
+            "star_power": 88,
+            "entrance": 90
+        },
+        "intangibles": {
+            "psychology": 82,
+            "consistency": 78,
+            "big_match": 88,
+            "clutch": 82
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Banzai Drop", "type": "aerial", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Belly-to-Belly Suplex", "type": "power", "damage": 72},
+                {"name": "Samoan Drop", "type": "power", "damage": 70}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 88,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5000}
+    },
+    {
+        "id": 24,
+        "name": "Lex Luger",
+        "nickname": "The Total Package",
+        "billing_name": "The Narcissist",
+        "bio": {
+            "age": 32,
+            "height": 76,
+            "weight": 270,
+            "home_region": "Atlanta, GA",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 95,
+            "speed": 62,
+            "agility": 50,
+            "durability": 90,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 75,
+            "grappling": 75,
+            "submission": 72,
+            "high_flying": 35,
+            "hardcore": 65,
+            "power_moves": 92,
+            "technical": 65,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 75,
+            "aerial_defense": 70,
+            "ring_awareness": 75
+        },
+        "entertainment": {
+            "mic_skills": 65,
+            "charisma": 78,
+            "look": 98,
+            "star_power": 82,
+            "entrance": 85
+        },
+        "intangibles": {
+            "psychology": 72,
+            "consistency": 78,
+            "big_match": 78,
+            "clutch": 72
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": null
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Torture Rack", "type": "submission", "damage": 90},
+                {"name": "Running Forearm", "type": "strike", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Powerslam", "type": "power", "damage": 68},
+                {"name": "Superplex", "type": "power", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 82,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4500}
+    },
+    {
+        "id": 25,
+        "name": "Billy Gunn",
+        "nickname": "Mr. Ass",
+        "billing_name": "The One",
+        "bio": {
+            "age": 34,
+            "height": 77,
+            "weight": 260,
+            "home_region": "Austin, TX",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 78,
+            "agility": 75,
+            "durability": 82,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 80,
+            "submission": 65,
+            "high_flying": 65,
+            "hardcore": 72,
+            "power_moves": 82,
+            "technical": 72,
+            "dirty_tactics": 65
+        },
+        "defense": {
+            "strike_defense": 75,
+            "grapple_defense": 78,
+            "aerial_defense": 72,
+            "ring_awareness": 80
+        },
+        "entertainment": {
+            "mic_skills": 80,
+            "charisma": 82,
+            "look": 88,
+            "star_power": 78,
+            "entrance": 85
+        },
+        "intangibles": {
+            "psychology": 78,
+            "consistency": 82,
+            "big_match": 75,
+            "clutch": 75
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Fame Asser", "type": "strike", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Tilt-a-Whirl Slam", "type": "power", "damage": 65},
+                {"name": "Stinger Splash", "type": "aerial", "damage": 60}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 78,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3500}
+    },
+    {
+        "id": 26,
+        "name": "JBL",
+        "nickname": "The Wrestling God",
+        "billing_name": "The Wrestling God",
+        "bio": {
+            "age": 38,
+            "height": 78,
+            "weight": 290,
+            "home_region": "New York, NY",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 88,
+            "speed": 58,
+            "agility": 45,
+            "durability": 88,
+            "stamina": 82,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 78,
+            "submission": 65,
+            "high_flying": 25,
+            "hardcore": 82,
+            "power_moves": 88,
+            "technical": 72,
+            "dirty_tactics": 92
+        },
+        "defense": {
+            "strike_defense": 80,
+            "grapple_defense": 78,
+            "aerial_defense": 72,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 90,
+            "look": 85,
+            "star_power": 85,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 88,
+            "consistency": 85,
+            "big_match": 85,
+            "clutch": 82
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Clothesline from Hell", "type": "strike", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Fall Away Slam", "type": "power", "damage": 68},
+                {"name": "Big Boot", "type": "strike", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 88,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5000}
+    },
+    {
+        "id": 27,
+        "name": "Sting",
+        "nickname": "The Icon",
+        "billing_name": "The Franchise of WCW",
+        "bio": {
+            "age": 36,
+            "height": 75,
+            "weight": 250,
+            "home_region": "Venice Beach, CA",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 80,
+            "agility": 82,
+            "durability": 88,
+            "stamina": 90,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 85,
+            "submission": 90,
+            "high_flying": 78,
+            "hardcore": 72,
+            "power_moves": 82,
+            "technical": 85,
+            "dirty_tactics": 45
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 85,
+            "aerial_defense": 82,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 82,
+            "charisma": 95,
+            "look": 98,
+            "star_power": 95,
+            "entrance": 100
+        },
+        "intangibles": {
+            "psychology": 92,
+            "consistency": 90,
+            "big_match": 95,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Scorpion Deathlock", "type": "submission", "damage": 92},
+                {"name": "Scorpion Death Drop", "type": "power", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "Stinger Splash", "type": "aerial", "damage": 72},
+                {"name": "Flying Clothesline", "type": "aerial", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 28,
+        "name": "Vader",
+        "nickname": "The Mastodon",
+        "billing_name": "Big Van Vader",
+        "bio": {
+            "age": 38,
+            "height": 74,
+            "weight": 450,
+            "home_region": "The Rocky Mountains",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 95,
+            "speed": 55,
+            "agility": 60,
+            "durability": 92,
+            "stamina": 75,
+            "recovery": 68
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 82,
+            "submission": 65,
+            "high_flying": 70,
+            "hardcore": 88,
+            "power_moves": 95,
+            "technical": 72,
+            "dirty_tactics": 75
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 82,
+            "aerial_defense": 78,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 72,
+            "charisma": 85,
+            "look": 92,
+            "star_power": 88,
+            "entrance": 92
+        },
+        "intangibles": {
+            "psychology": 88,
+            "consistency": 85,
+            "big_match": 92,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Vader Bomb", "type": "aerial", "damage": 95},
+                {"name": "Powerbomb", "type": "power", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Vader Attack", "type": "strike", "damage": 72},
+                {"name": "Moonsault", "type": "aerial", "damage": 80}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 90,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5500}
+    },
+    {
+        "id": 29,
+        "name": "The British Bulldog",
+        "nickname": "The Powerhouse",
+        "billing_name": "Davey Boy Smith",
+        "bio": {
+            "age": 32,
+            "height": 71,
+            "weight": 260,
+            "home_region": "Manchester, England",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 75,
+            "agility": 72,
+            "durability": 85,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 75,
+            "grappling": 88,
+            "submission": 75,
+            "high_flying": 65,
+            "hardcore": 68,
+            "power_moves": 92,
+            "technical": 82,
+            "dirty_tactics": 55
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 85,
+            "aerial_defense": 75,
+            "ring_awareness": 85
+        },
+        "entertainment": {
+            "mic_skills": 65,
+            "charisma": 82,
+            "look": 92,
+            "star_power": 85,
+            "entrance": 90
+        },
+        "intangibles": {
+            "psychology": 85,
+            "consistency": 82,
+            "big_match": 92,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Running Powerslam", "type": "power", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Delayed Vertical Suplex", "type": "power", "damage": 72},
+                {"name": "Diving Headbutt", "type": "aerial", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 88,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4500}
+    },
+    {
+        "id": 30,
+        "name": "Road Warrior Hawk",
+        "nickname": "The Road Warrior",
+        "billing_name": "Legion of Doom",
+        "bio": {
+            "age": 35,
+            "height": 74,
+            "weight": 275,
+            "home_region": "Chicago, IL",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 90,
+            "speed": 70,
+            "agility": 65,
+            "durability": 90,
+            "stamina": 82,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 78,
+            "submission": 55,
+            "high_flying": 72,
+            "hardcore": 88,
+            "power_moves": 88,
+            "technical": 62,
+            "dirty_tactics": 65
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 78,
+            "aerial_defense": 75,
+            "ring_awareness": 82
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 88,
+            "look": 95,
+            "star_power": 90,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 82,
+            "consistency": 85,
+            "big_match": 88,
+            "clutch": 85
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Doomsday Device", "type": "power", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Flying Clothesline", "type": "aerial", "damage": 72},
+                {"name": "Neckbreaker", "type": "technical", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4500}
+    },
+    {
+        "id": 31,
+        "name": "Road Warrior Animal",
+        "nickname": "The Road Warrior",
+        "billing_name": "Legion of Doom",
+        "bio": {
+            "age": 35,
+            "height": 74,
+            "weight": 305,
+            "home_region": "Chicago, IL",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 65,
+            "agility": 58,
+            "durability": 92,
+            "stamina": 80,
+            "recovery": 72
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 80,
+            "submission": 50,
+            "high_flying": 55,
+            "hardcore": 88,
+            "power_moves": 92,
+            "technical": 58,
+            "dirty_tactics": 62
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 82,
+            "aerial_defense": 78,
+            "ring_awareness": 80
+        },
+        "entertainment": {
+            "mic_skills": 72,
+            "charisma": 85,
+            "look": 95,
+            "star_power": 90,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 80,
+            "consistency": 85,
+            "big_match": 88,
+            "clutch": 82
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Doomsday Device", "type": "power", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Powerslam", "type": "power", "damage": 72},
+                {"name": "Shoulder Block", "type": "strike", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4500}
+    },
+    {
+        "id": 32,
+        "name": "Sid Justice",
+        "nickname": "Psycho Sid",
+        "billing_name": "The Master and Ruler of the World",
+        "bio": {
+            "age": 33,
+            "height": 81,
+            "weight": 317,
+            "home_region": "West Memphis, AR",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 55,
+            "agility": 45,
+            "durability": 88,
+            "stamina": 72,
+            "recovery": 68
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 72,
+            "submission": 55,
+            "high_flying": 30,
+            "hardcore": 78,
+            "power_moves": 92,
+            "technical": 55,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 75,
+            "aerial_defense": 72,
+            "ring_awareness": 75
+        },
+        "entertainment": {
+            "mic_skills": 82,
+            "charisma": 88,
+            "look": 95,
+            "star_power": 85,
+            "entrance": 90
+        },
+        "intangibles": {
+            "psychology": 72,
+            "consistency": 70,
+            "big_match": 82,
+            "clutch": 78
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Powerbomb", "type": "power", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Chokeslam", "type": "power", "damage": 78},
+                {"name": "Big Boot", "type": "strike", "damage": 65}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 85,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4500}
+    },
+    {
+        "id": 33,
+        "name": "Papa Shango",
+        "nickname": "The Voodoo Man",
+        "billing_name": "Papa Shango",
+        "bio": {
+            "age": 32,
+            "height": 76,
+            "weight": 330,
+            "home_region": "Parts Unknown",
+            "years_active": 6
+        },
+        "physical": {
+            "strength": 88,
+            "speed": 52,
+            "agility": 45,
+            "durability": 85,
+            "stamina": 75,
+            "recovery": 70
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 72,
+            "submission": 55,
+            "high_flying": 25,
+            "hardcore": 75,
+            "power_moves": 85,
+            "technical": 55,
+            "dirty_tactics": 82
+        },
+        "defense": {
+            "strike_defense": 75,
+            "grapple_defense": 72,
+            "aerial_defense": 68,
+            "ring_awareness": 72
+        },
+        "entertainment": {
+            "mic_skills": 72,
+            "charisma": 82,
+            "look": 92,
+            "star_power": 72,
+            "entrance": 90
+        },
+        "intangibles": {
+            "psychology": 72,
+            "consistency": 75,
+            "big_match": 70,
+            "clutch": 68
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Shoulder Breaker", "type": "power", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Voodoo Spike", "type": "strike", "damage": 68},
+                {"name": "Leg Drop", "type": "aerial", "damage": 60}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 72,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3000}
+    },
+    {
+        "id": 34,
+        "name": "Edge",
+        "nickname": "The Rated-R Superstar",
+        "billing_name": "The Ultimate Opportunist",
+        "bio": {
+            "age": 33,
+            "height": 76,
+            "weight": 241,
+            "home_region": "Toronto, ON",
+            "years_active": 14
+        },
+        "physical": {
+            "strength": 78,
+            "speed": 85,
+            "agility": 82,
+            "durability": 85,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 85,
+            "submission": 78,
+            "high_flying": 82,
+            "hardcore": 88,
+            "power_moves": 78,
+            "technical": 82,
+            "dirty_tactics": 90
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 85,
+            "aerial_defense": 80,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 92,
+            "charisma": 95,
+            "look": 90,
+            "star_power": 93,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 90,
+            "big_match": 95,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Spear", "type": "strike", "damage": 92},
+                {"name": "Edgecution", "type": "technical", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Edge-O-Matic", "type": "technical", "damage": 72},
+                {"name": "Diving Crossbody", "type": "aerial", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 93,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 35,
+        "name": "Christian",
+        "nickname": "Captain Charisma",
+        "billing_name": "Captain Charisma",
+        "bio": {
+            "age": 33,
+            "height": 73,
+            "weight": 212,
+            "home_region": "Toronto, ON",
+            "years_active": 14
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 82,
+            "agility": 85,
+            "durability": 82,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 85,
+            "submission": 75,
+            "high_flying": 82,
+            "hardcore": 78,
+            "power_moves": 72,
+            "technical": 88,
+            "dirty_tactics": 82
+        },
+        "defense": {
+            "strike_defense": 80,
+            "grapple_defense": 85,
+            "aerial_defense": 82,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 90,
+            "charisma": 88,
+            "look": 82,
+            "star_power": 82,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 92,
+            "consistency": 90,
+            "big_match": 88,
+            "clutch": 85
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "high_flyer"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Killswitch", "type": "technical", "damage": 90},
+                {"name": "Frog Splash", "type": "aerial", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Pendulum Kick", "type": "strike", "damage": 65},
+                {"name": "Tornado DDT", "type": "aerial", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 85,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 5000}
+    },
+    {
+        "id": 36,
+        "name": "Bubba Ray Dudley",
+        "nickname": "Bully Ray",
+        "billing_name": "The Dudley Boys",
+        "bio": {
+            "age": 32,
+            "height": 74,
+            "weight": 275,
+            "home_region": "Dudleyville",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 85,
+            "speed": 65,
+            "agility": 58,
+            "durability": 88,
+            "stamina": 82,
+            "recovery": 75
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 80,
+            "submission": 62,
+            "high_flying": 55,
+            "hardcore": 95,
+            "power_moves": 85,
+            "technical": 72,
+            "dirty_tactics": 78
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 80,
+            "aerial_defense": 72,
+            "ring_awareness": 85
+        },
+        "entertainment": {
+            "mic_skills": 88,
+            "charisma": 85,
+            "look": 78,
+            "star_power": 82,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 85,
+            "consistency": 85,
+            "big_match": 88,
+            "clutch": 82
+        },
+        "styles": {
+            "primary": "hardcore",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "3D", "type": "power", "damage": 95},
+                {"name": "Bubba Bomb", "type": "power", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Bubba Cutter", "type": "strike", "damage": 72},
+                {"name": "Senton Splash", "type": "aerial", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 85,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4000}
+    },
+    {
+        "id": 37,
+        "name": "D-Von Dudley",
+        "nickname": "The Reverend",
+        "billing_name": "The Dudley Boys",
+        "bio": {
+            "age": 30,
+            "height": 74,
+            "weight": 250,
+            "home_region": "Dudleyville",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 82,
+            "speed": 72,
+            "agility": 68,
+            "durability": 85,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 80,
+            "grappling": 78,
+            "submission": 58,
+            "high_flying": 65,
+            "hardcore": 92,
+            "power_moves": 82,
+            "technical": 68,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 78,
+            "aerial_defense": 72,
+            "ring_awareness": 82
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 80,
+            "look": 78,
+            "star_power": 78,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 82,
+            "consistency": 85,
+            "big_match": 85,
+            "clutch": 80
+        },
+        "styles": {
+            "primary": "hardcore",
+            "secondary": "powerhouse"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "3D", "type": "power", "damage": 95},
+                {"name": "Diving Headbutt", "type": "aerial", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Spinning Elbow", "type": "strike", "damage": 65},
+                {"name": "Powerslam", "type": "power", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 82,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3500}
+    },
+    {
+        "id": 38,
+        "name": "Goldust",
+        "nickname": "The Bizarre One",
+        "billing_name": "The Golden One",
+        "bio": {
+            "age": 35,
+            "height": 76,
+            "weight": 260,
+            "home_region": "Hollywood, CA",
+            "years_active": 12
+        },
+        "physical": {
+            "strength": 80,
+            "speed": 68,
+            "agility": 65,
+            "durability": 85,
+            "stamina": 82,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 82,
+            "submission": 72,
+            "high_flying": 55,
+            "hardcore": 78,
+            "power_moves": 78,
+            "technical": 80,
+            "dirty_tactics": 85
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 80,
+            "aerial_defense": 72,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 85,
+            "charisma": 92,
+            "look": 95,
+            "star_power": 82,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 90,
+            "consistency": 85,
+            "big_match": 80,
+            "clutch": 78
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Curtain Call", "type": "technical", "damage": 88},
+                {"name": "Shattered Dreams", "type": "dirty", "damage": 75}
+            ],
+            "signatures": [
+                {"name": "Powerslam", "type": "power", "damage": 70},
+                {"name": "Uppercut", "type": "strike", "damage": 62}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 82,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4000}
+    },
+    {
+        "id": 39,
+        "name": "Dean Malenko",
+        "nickname": "The Iceman",
+        "billing_name": "The Man of 1000 Holds",
+        "bio": {
+            "age": 35,
+            "height": 70,
+            "weight": 212,
+            "home_region": "Tampa, FL",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 72,
+            "speed": 78,
+            "agility": 80,
+            "durability": 82,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 72,
+            "grappling": 95,
+            "submission": 98,
+            "high_flying": 72,
+            "hardcore": 55,
+            "power_moves": 70,
+            "technical": 99,
+            "dirty_tactics": 45
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 95,
+            "aerial_defense": 80,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 55,
+            "charisma": 65,
+            "look": 72,
+            "star_power": 75,
+            "entrance": 72
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 95,
+            "big_match": 88,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "submission"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Texas Cloverleaf", "type": "submission", "damage": 92}
+            ],
+            "signatures": [
+                {"name": "Brainbuster", "type": "technical", "damage": 75},
+                {"name": "Tiger Bomb", "type": "power", "damage": 78}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 78,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 4000}
+    },
+    {
+        "id": 40,
+        "name": "X-Pac",
+        "nickname": "The 1-2-3 Kid",
+        "billing_name": "X-Pac",
+        "bio": {
+            "age": 28,
+            "height": 73,
+            "weight": 212,
+            "home_region": "Minneapolis, MN",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 65,
+            "speed": 92,
+            "agility": 95,
+            "durability": 75,
+            "stamina": 88,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 78,
+            "submission": 72,
+            "high_flying": 92,
+            "hardcore": 75,
+            "power_moves": 62,
+            "technical": 80,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 75,
+            "grapple_defense": 78,
+            "aerial_defense": 85,
+            "ring_awareness": 85
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 78,
+            "look": 75,
+            "star_power": 78,
+            "entrance": 85
+        },
+        "intangibles": {
+            "psychology": 85,
+            "consistency": 80,
+            "big_match": 82,
+            "clutch": 80
+        },
+        "styles": {
+            "primary": "high_flyer",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "X-Factor", "type": "strike", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "Bronco Buster", "type": "aerial", "damage": 60},
+                {"name": "Spinning Heel Kick", "type": "strike", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 78,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3500}
+    },
+    {
+        "id": 41,
+        "name": "Road Dogg",
+        "nickname": "The D-O-Double-G",
+        "billing_name": "The Road Dogg Jesse James",
+        "bio": {
+            "age": 30,
+            "height": 73,
+            "weight": 241,
+            "home_region": "Marietta, GA",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 75,
+            "speed": 78,
+            "agility": 72,
+            "durability": 80,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 75,
+            "submission": 62,
+            "high_flying": 60,
+            "hardcore": 78,
+            "power_moves": 72,
+            "technical": 70,
+            "dirty_tactics": 70
+        },
+        "defense": {
+            "strike_defense": 72,
+            "grapple_defense": 75,
+            "aerial_defense": 70,
+            "ring_awareness": 80
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 92,
+            "look": 78,
+            "star_power": 82,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 82,
+            "consistency": 80,
+            "big_match": 78,
+            "clutch": 75
+        },
+        "styles": {
+            "primary": "showman",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Pump Handle Slam", "type": "power", "damage": 85}
+            ],
+            "signatures": [
+                {"name": "Shake Rattle and Roll", "type": "strike", "damage": 68},
+                {"name": "Dancing Punches", "type": "strike", "damage": 55}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 82,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3500}
+    },
+    {
+        "id": 42,
+        "name": "Kane",
+        "nickname": "The Big Red Machine",
+        "billing_name": "The Devil's Favorite Demon",
+        "bio": {
+            "age": 34,
+            "height": 83,
+            "weight": 323,
+            "home_region": "Parts Unknown",
+            "years_active": 10
+        },
+        "physical": {
+            "strength": 92,
+            "speed": 62,
+            "agility": 65,
+            "durability": 95,
+            "stamina": 85,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 85,
+            "grappling": 82,
+            "submission": 70,
+            "high_flying": 72,
+            "hardcore": 88,
+            "power_moves": 92,
+            "technical": 72,
+            "dirty_tactics": 65
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 82,
+            "aerial_defense": 80,
+            "ring_awareness": 88
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 88,
+            "look": 98,
+            "star_power": 92,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 88,
+            "consistency": 92,
+            "big_match": 92,
+            "clutch": 88
+        },
+        "styles": {
+            "primary": "giant",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Chokeslam", "type": "power", "damage": 92},
+                {"name": "Tombstone Piledriver", "type": "power", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Flying Clothesline", "type": "aerial", "damage": 72},
+                {"name": "Sidewalk Slam", "type": "power", "damage": 68}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 43,
+        "name": "Batista",
+        "nickname": "The Animal",
+        "billing_name": "The Animal Batista",
+        "bio": {
+            "age": 36,
+            "height": 78,
+            "weight": 290,
+            "home_region": "Washington, D.C.",
+            "years_active": 8
+        },
+        "physical": {
+            "strength": 95,
+            "speed": 68,
+            "agility": 62,
+            "durability": 90,
+            "stamina": 82,
+            "recovery": 78
+        },
+        "offense": {
+            "striking": 82,
+            "grappling": 82,
+            "submission": 65,
+            "high_flying": 45,
+            "hardcore": 78,
+            "power_moves": 95,
+            "technical": 72,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 80,
+            "aerial_defense": 75,
+            "ring_awareness": 85
+        },
+        "entertainment": {
+            "mic_skills": 82,
+            "charisma": 90,
+            "look": 98,
+            "star_power": 95,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 85,
+            "consistency": 88,
+            "big_match": 95,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "powerhouse",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Batista Bomb", "type": "power", "damage": 95}
+            ],
+            "signatures": [
+                {"name": "Spinebuster", "type": "power", "damage": 78},
+                {"name": "Spear", "type": "strike", "damage": 75}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 7000}
+    },
+    {
+        "id": 44,
+        "name": "Rey Mysterio",
+        "nickname": "The Master of the 619",
+        "billing_name": "The Ultimate Underdog",
+        "bio": {
+            "age": 32,
+            "height": 66,
+            "weight": 175,
+            "home_region": "San Diego, CA",
+            "years_active": 18
+        },
+        "physical": {
+            "strength": 55,
+            "speed": 98,
+            "agility": 100,
+            "durability": 75,
+            "stamina": 92,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 78,
+            "grappling": 82,
+            "submission": 75,
+            "high_flying": 100,
+            "hardcore": 68,
+            "power_moves": 55,
+            "technical": 88,
+            "dirty_tactics": 45
+        },
+        "defense": {
+            "strike_defense": 78,
+            "grapple_defense": 80,
+            "aerial_defense": 92,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 95,
+            "look": 92,
+            "star_power": 95,
+            "entrance": 98
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 92,
+            "big_match": 95,
+            "clutch": 92
+        },
+        "styles": {
+            "primary": "high_flyer",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "619", "type": "strike", "damage": 88},
+                {"name": "Frog Splash", "type": "aerial", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "West Coast Pop", "type": "aerial", "damage": 78},
+                {"name": "Hurricanrana", "type": "aerial", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Face",
+            "heat": 95,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6500}
+    },
+    {
+        "id": 45,
+        "name": "Dominik Mysterio",
+        "nickname": "Dirty Dom",
+        "billing_name": "The Latino Heat Legacy",
+        "bio": {
+            "age": 26,
+            "height": 74,
+            "weight": 200,
+            "home_region": "San Diego, CA",
+            "years_active": 4
+        },
+        "physical": {
+            "strength": 68,
+            "speed": 82,
+            "agility": 85,
+            "durability": 78,
+            "stamina": 85,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 72,
+            "grappling": 75,
+            "submission": 68,
+            "high_flying": 82,
+            "hardcore": 72,
+            "power_moves": 68,
+            "technical": 75,
+            "dirty_tactics": 82
+        },
+        "defense": {
+            "strike_defense": 72,
+            "grapple_defense": 75,
+            "aerial_defense": 78,
+            "ring_awareness": 78
+        },
+        "entertainment": {
+            "mic_skills": 78,
+            "charisma": 82,
+            "look": 78,
+            "star_power": 78,
+            "entrance": 82
+        },
+        "intangibles": {
+            "psychology": 78,
+            "consistency": 80,
+            "big_match": 78,
+            "clutch": 75
+        },
+        "styles": {
+            "primary": "high_flyer",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Frog Splash", "type": "aerial", "damage": 88}
+            ],
+            "signatures": [
+                {"name": "619", "type": "strike", "damage": 75},
+                {"name": "Tornado DDT", "type": "aerial", "damage": 72}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Heel",
+            "heat": 80,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 3500}
+    },
+    {
+        "id": 46,
+        "name": "Kevin Owens",
+        "nickname": "The Prizefighter",
+        "billing_name": "KO",
+        "bio": {
+            "age": 38,
+            "height": 72,
+            "weight": 266,
+            "home_region": "Marieville, QC",
+            "years_active": 18
+        },
+        "physical": {
+            "strength": 85,
+            "speed": 75,
+            "agility": 78,
+            "durability": 88,
+            "stamina": 88,
+            "recovery": 80
+        },
+        "offense": {
+            "striking": 88,
+            "grappling": 85,
+            "submission": 78,
+            "high_flying": 78,
+            "hardcore": 85,
+            "power_moves": 88,
+            "technical": 85,
+            "dirty_tactics": 82
+        },
+        "defense": {
+            "strike_defense": 82,
+            "grapple_defense": 85,
+            "aerial_defense": 78,
+            "ring_awareness": 92
+        },
+        "entertainment": {
+            "mic_skills": 95,
+            "charisma": 92,
+            "look": 78,
+            "star_power": 90,
+            "entrance": 88
+        },
+        "intangibles": {
+            "psychology": 95,
+            "consistency": 92,
+            "big_match": 92,
+            "clutch": 90
+        },
+        "styles": {
+            "primary": "brawler",
+            "secondary": "technician"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "Stunner", "type": "strike", "damage": 92},
+                {"name": "Pop-Up Powerbomb", "type": "power", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "Cannonball", "type": "aerial", "damage": 72},
+                {"name": "Superkick", "type": "strike", "damage": 75}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 92,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 6000}
+    },
+    {
+        "id": 47,
+        "name": "CM Punk",
+        "nickname": "The Best in the World",
+        "billing_name": "The Voice of the Voiceless",
+        "bio": {
+            "age": 35,
+            "height": 74,
+            "weight": 218,
+            "home_region": "Chicago, IL",
+            "years_active": 15
+        },
+        "physical": {
+            "strength": 75,
+            "speed": 82,
+            "agility": 80,
+            "durability": 85,
+            "stamina": 92,
+            "recovery": 82
+        },
+        "offense": {
+            "striking": 92,
+            "grappling": 88,
+            "submission": 90,
+            "high_flying": 78,
+            "hardcore": 82,
+            "power_moves": 75,
+            "technical": 90,
+            "dirty_tactics": 72
+        },
+        "defense": {
+            "strike_defense": 85,
+            "grapple_defense": 88,
+            "aerial_defense": 82,
+            "ring_awareness": 95
+        },
+        "entertainment": {
+            "mic_skills": 100,
+            "charisma": 98,
+            "look": 85,
+            "star_power": 98,
+            "entrance": 95
+        },
+        "intangibles": {
+            "psychology": 98,
+            "consistency": 90,
+            "big_match": 98,
+            "clutch": 95
+        },
+        "styles": {
+            "primary": "technician",
+            "secondary": "brawler"
+        },
+        "moves": {
+            "finishers": [
+                {"name": "GTS", "type": "strike", "damage": 95},
+                {"name": "Anaconda Vise", "type": "submission", "damage": 90}
+            ],
+            "signatures": [
+                {"name": "Diving Elbow", "type": "aerial", "damage": 78},
+                {"name": "Running Knee", "type": "strike", "damage": 75}
+            ]
+        },
+        "status": {
+            "morale": 100,
+            "condition": 100,
+            "alignment": "Tweener",
+            "heat": 98,
+            "wins": 0,
+            "losses": 0,
+            "has_mitb_briefcase": false,
+            "is_injured": false,
+            "injury_weeks_remaining": 0
+        },
+        "contract": {"per_appearance_fee": 8000}
+    }
+]

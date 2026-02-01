@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Tag Teams - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-people-fill me-2 text-gold"></i>Tag Teams</h2>
+    <a href="{{ url_for('create_tag_team') }}" class="btn btn-gold shadow-sm">
+        <i class="bi bi-plus-circle me-1"></i>Create Tag Team
+    </a>
+</div>
+
+<div class="row g-4">
+    {% for team in teams %}
+    <div class="col-lg-4 col-md-6">
+        <div class="card h-100 border-0 shadow-sm {% if not team.is_active %}opacity-75{% endif %}">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-primary fs-5">{{ team.name }}</span>
+                {% if team.is_active %}
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill">ACTIVE</span>
+                {% else %}
+                <span class="badge bg-secondary rounded-pill">DISBANDED</span>
+                {% endif %}
+            </div>
+            <div class="card-body px-4 pb-4">
+                <div class="row align-items-center text-center g-0 mb-4 bg-light rounded p-3 border border-primary border-opacity-10">
+                    {% for member_id in team.member_ids %}
+                    {% set member = game.get_wrestler_by_id(member_id) %}
+                    <div class="col-5">
+                        {% if member %}
+                        <a href="{{ url_for('wrestler_profile', wrestler_id=member.id) }}"
+                           class="text-decoration-none text-dark d-block">
+                            <i class="bi bi-person-circle d-block mb-1 fs-3 text-secondary"></i>
+                            <span class="fw-bold small d-block mb-1">{{ member.name }}</span>
+                            <span class="badge bg-white text-muted border rounded-pill" style="font-size: 0.65rem;">OVR: {{ member.get_overall_rating() }}</span>
+                        </a>
+                        {% else %}
+                        <span class="text-muted">Unknown</span>
+                        {% endif %}
+                    </div>
+                    {% if loop.first %}
+                    <div class="col-2">
+                        <span class="text-muted fw-bold">&</span>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="row text-center mb-4 g-2">
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-white shadow-sm">
+                            <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">RECORD</small>
+                            <span class="fw-bold text-dark">{{ team.wins }}-{{ team.losses }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-white shadow-sm">
+                            <small class="text-muted d-block fw-bold mb-1" style="font-size: 0.7rem;">CHEMISTRY</small>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="stat-bar flex-grow-1 me-2" style="max-width: 50px; height: 6px;">
+                                    <div class="stat-bar-fill {% if team.chemistry >= 80 %}stat-high{% elif team.chemistry >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                                         style="width: {{ team.chemistry }}%;"></div>
+                                </div>
+                                <span class="fw-bold text-dark" style="font-size: 0.85rem;">{{ team.chemistry }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if team.is_active %}
+                <form action="{{ url_for('disband_tag_team', team_id=team.id) }}" method="post">
+                    <button type="submit" class="btn btn-sm btn-outline-danger w-100 border-0 fw-bold"
+                            onclick="return confirm('Are you sure you want to disband this team?')">
+                        Disband Team
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="bi bi-people text-muted" style="font-size: 5rem; opacity: 0.2;"></i>
+            </div>
+            <h4 class="text-muted mb-3">No tag teams created yet</h4>
+            <a href="{{ url_for('create_tag_team') }}" class="btn btn-gold btn-lg shadow-sm">Create Your First Tag Team</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

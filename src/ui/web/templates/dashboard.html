@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ save_name }}{% endblock %}
+
+{% block content %}
+<!-- Header & Context -->
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+    <div>
+        <h2 class="mb-0 fw-bold">
+            <i class="bi bi-speedometer2 me-2 text-primary"></i>Dashboard 
+            <span class="badge bg-dark ms-2" style="font-size: 0.5em; vertical-align: middle;">v2.0</span>
+        </h2>
+        <small class="text-muted">{{ save_name }} &bull; {{ date_string }}</small>
+    </div>
+    <div class="text-end">
+        <span class="badge bg-light text-dark border p-2">
+            Next Major Event: <span class="fw-bold text-danger">{{ next_ppv }}</span>
+        </span>
+        {% if is_ppv %}
+        <div class="mt-2 animate__animated animate__pulse animate__infinite">
+            <span class="badge bg-danger"><i class="bi bi-star-fill me-1"></i>PPV WEEK</span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- LEFT COLUMN: Main Content -->
+    <div class="col-lg-9">
+        
+        <!-- Weekly Schedule Section -->
+        <div class="card border-0 shadow-sm mb-4 overflow-hidden">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-calendar-week me-2"></i>This Week's Schedule</span>
+                <span class="badge bg-secondary">{{ week_progress }} Completed</span>
+            </div>
+            <div class="card-body bg-light">
+                {% if remaining_shows %}
+                    <div class="row flex-nowrap overflow-auto g-3 pb-2" style="scrollbar-width: thin;">
+                        {% for show in remaining_shows %}
+                        <div class="col-md-4 col-sm-6" style="min-width: 240px;">
+                            <div class="card h-100 border-start border-4 {% if loop.index == 1 %}border-primary shadow-sm{% else %}border-secondary opacity-75{% endif %}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <small class="text-uppercase fw-bold text-muted">{{ show.day_of_week.name }}</small>
+                                        {% if show.brand_id %}
+                                            {% set brand = game.get_brand_by_id(show.brand_id) %}
+                                            <span class="badge" style="background-color: {{ brand.color }};">{{ brand.short_name }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <h5 class="card-title mb-3">{{ show.name }}</h5>
+                                    
+                                    {% if loop.index == 1 %}
+                                    <a href="{{ url_for('booking') }}" class="btn btn-primary w-100 btn-sm stretched-link">
+                                        <i class="bi bi-pencil-square me-1"></i>Book Now
+                                    </a>
+                                    {% else %}
+                                    <button class="btn btn-outline-secondary w-100 btn-sm" disabled>Upcoming</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-check-circle-fill text-success display-4 mb-2"></i>
+                        <h5>Week Complete!</h5>
+                        <p class="text-muted">All shows have been run. Ready to advance.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Breaking News Feed -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center" role="button" data-bs-toggle="collapse" data-bs-target="#newsCollapse" aria-expanded="false" aria-controls="newsCollapse">
+                <span class="fw-bold"><i class="bi bi-newspaper me-2 text-primary"></i>Breaking News</span>
+                <div>
+                    <span class="badge bg-danger me-2">LIVE</span>
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+            </div>
+            <div class="collapse" id="newsCollapse">
+                <ul class="list-group list-group-flush">
+                    {% if news %}
+                        {% for item in news %}
+                        <li class="list-group-item py-3">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <div>
+                                    {% if item.category == 'title_change' %}
+                                        <span class="badge bg-warning text-dark me-2">CHAMPIONSHIP</span>
+                                    {% elif item.category == 'injury' %}
+                                        <span class="badge bg-danger me-2">INJURY</span>
+                                    {% elif item.category == 'classic_match' %}
+                                        <span class="badge bg-success me-2">CLASSIC</span>
+                                    {% elif item.category == 'feud_escalation' or item.category == 'feud_conclusion' %}
+                                        <span class="badge bg-danger bg-opacity-75 me-2">RIVALRY</span>
+                                    {% elif item.category == 'title_defense' %}
+                                        <span class="badge bg-primary me-2">DEFENSE</span>
+                                    {% elif item.importance == 'breaking' %}
+                                        <span class="badge bg-danger me-2">BREAKING</span>
+                                    {% elif item.importance == 'major' %}
+                                        <span class="badge bg-primary me-2">MAJOR</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary me-2">NEWS</span>
+                                    {% endif %}
+                                    <small class="text-muted" style="font-size: 0.75rem;">{{ item.date }}</small>
+                                </div>
+                                {% if item.show_name %}
+                                    <small class="text-muted fst-italic">{{ item.show_name }}</small>
+                                {% endif %}
+                            </div>
+                            <h6 class="mb-1 fw-bold">{{ item.headline }}</h6>
+                            <p class="mb-0 text-muted small">{{ item.body }}</p>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item text-center py-4 text-muted">
+                            <i class="bi bi-broadcast display-6 mb-2 d-block opacity-25"></i>
+                            No recent news to report.
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Brand Overview -->
+        <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-flag-fill me-2"></i>Active Brands</h5>
+        <div class="row g-3 mb-4">
+            {% for brand in game.get_active_brands() %}
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm" style="border-top: 4px solid {{ brand.color }} !important;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold">{{ brand.name }}</h5>
+                            <span class="badge rounded-pill bg-light text-dark border">{{ brand.assigned_wrestlers|length }} Stars</span>
+                        </div>
+                        
+                        <div class="small">
+                            <h6 class="text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px;">Champions</h6>
+                            <ul class="list-unstyled mb-0">
+                                {% for title in game.get_brand_titles(brand.id) %}
+                                {% if title.current_holder_id %}
+                                    {% set holder = game.get_wrestler_by_id(title.current_holder_id) %}
+                                    <li class="mb-1 d-flex align-items-center">
+                                        <svg viewBox="0 0 200 80" width="24" height="10" class="me-2">
+                                            <path d="M10 25 C 10 25, 50 20, 100 20 C 150 20, 190 25, 190 25 L 190 55 C 190 55, 150 60, 100 60 C 50 60, 10 55, 10 55 Z" fill="#333" />
+                                            <path d="M75 15 L125 15 L135 40 L125 65 L75 65 L65 40 Z" fill="#FFD700" />
+                                        </svg>
+                                        <span class="text-truncate me-2" style="max-width: 150px;" title="{{ title.name }}">{{ title.name }}:</span>
+                                        <a href="{{ url_for('wrestler_profile', wrestler_id=holder.id) }}" class="fw-bold text-dark text-decoration-none">
+                                            {{ holder.name }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% else %}
+                                <li class="text-muted fst-italic">No active champions</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="mt-3 text-end">
+                            <a href="{{ url_for('brand_roster', brand_id=brand.id) }}" class="btn btn-sm btn-outline-dark">Manage Roster</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">No brands created yet. <a href="{{ url_for('create_brand') }}">Create a brand</a> to get started.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Rankings Section -->
+        <div class="row g-4">
+            <!-- Singles Top 5 -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h6 class="mb-0 fw-bold"><i class="bi bi-person-fill me-2 text-primary"></i>Top 5 Singles</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for wrestler in rankings %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-light text-dark border me-2">#{{ loop.index }}</span>
+                                <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}" class="text-dark text-decoration-none fw-medium">
+                                    {{ wrestler.name }}
+                                </a>
+                            </div>
+                            <span class="badge {% if wrestler.alignment == 'Face' %}bg-primary{% elif wrestler.alignment == 'Heel' %}bg-danger{% else %}bg-secondary{% endif %} bg-opacity-75" style="font-size: 0.65rem;">
+                                {{ wrestler.alignment }}
+                            </span>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-muted text-center">No rankings data</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="card-footer bg-white border-0">
+                        <a href="{{ url_for('rankings') }}" class="btn btn-link btn-sm text-decoration-none p-0">View Full Rankings &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tag Team Top 5 -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h6 class="mb-0 fw-bold"><i class="bi bi-people-fill me-2 text-info"></i>Top 5 Teams</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for team in tag_rankings %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-light text-dark border me-2">#{{ loop.index }}</span>
+                                <span class="fw-medium">{{ team.name }}</span>
+                            </div>
+                            <div class="progress" style="width: 50px; height: 6px;" title="Chemistry: {{ team.chemistry }}">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ team.chemistry }}%"></div>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-muted text-center">No teams ranking</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="card-footer bg-white border-0">
+                        <a href="{{ url_for('rankings') }}" class="btn btn-link btn-sm text-decoration-none p-0">View Full Rankings &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Sidebar -->
+    <div class="col-lg-3">
+        <!-- Quick Actions -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h6 class="fw-bold text-muted text-uppercase mb-3" style="font-size: 0.75rem;">Management</h6>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('ai_booking') }}" class="btn btn-outline-primary text-start">
+                        <i class="bi bi-magic me-2"></i>Auto-Book Show
+                    </a>
+                    <a href="{{ url_for('create_wrestler') }}" class="btn btn-outline-dark text-start">
+                        <i class="bi bi-person-plus-fill me-2"></i>Sign Talent
+                    </a>
+                    <a href="{{ url_for('create_feud') }}" class="btn btn-outline-dark text-start">
+                        <i class="bi bi-fire me-2"></i>Start Storyline
+                    </a>
+                    <a href="{{ url_for('ppv_settings') }}" class="btn btn-outline-warning text-dark text-start">
+                        <i class="bi bi-calendar-event-fill me-2"></i>Manage PPVs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Stats -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h6 class="fw-bold text-muted text-uppercase mb-3" style="font-size: 0.75rem;">Company Stats</h6>
+                <div class="mb-3">
+                    <small class="text-muted fw-bold d-block">VIEWERS</small>
+                    <span class="fw-bold fs-5">{{ "{:,.0f}".format(company.viewers) }}</span>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted fw-bold d-block">PRESTIGE</small>
+                    <div class="progress mt-1" style="height: 8px;">
+                        <div class="progress-bar {% if company.prestige >= 70 %}bg-success{% elif company.prestige >= 40 %}bg-warning{% else %}bg-danger{% endif %}"
+                             style="width: {{ company.prestige }}%"></div>
+                    </div>
+                    <small class="text-muted">{{ company.prestige }}/100</small>
+                </div>
+                <div>
+                    <small class="text-muted fw-bold d-block">BANK</small>
+                    <span class="fw-bold fs-5 {% if company.bank_account >= 0 %}text-success{% else %}text-danger{% endif %}">
+                        ${{ "{:,.0f}".format(company.bank_account) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hot Feuds -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom">
+                <h6 class="mb-0 fw-bold text-danger"><i class="bi bi-fire me-2"></i>Hot Feuds</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for feud in feuds[:3] %}
+                {% set w1 = game.get_wrestler_by_id(feud.wrestler_a_id) %}
+                {% set w2 = game.get_wrestler_by_id(feud.wrestler_b_id) %}
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25" style="font-size: 0.6rem;">{{ feud.intensity|upper }}</span>
+                        <small class="text-muted">{{ feud.total_matches }} Matches</small>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center small fw-bold mt-2">
+                        <span class="text-truncate" style="max-width: 80px;">{{ w1.name }}</span>
+                        <span class="mx-2 text-muted">vs</span>
+                        <span class="text-truncate" style="max-width: 80px;">{{ w2.name }}</span>
+                    </div>
+                </li>
+                {% else %}
+                <li class="list-group-item text-muted text-center py-3">No active feuds</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if mitb_holder %}
+        <div class="card border-0 shadow-sm bg-warning bg-opacity-10">
+            <div class="card-body text-center">
+                <i class="bi bi-briefcase-fill text-warning display-6 mb-2"></i>
+                <h6 class="fw-bold">Mr. Money in the Bank</h6>
+                <a href="{{ url_for('wrestler_profile', wrestler_id=mitb_holder.id) }}" class="text-dark fw-bold text-decoration-none fs-5">
+                    {{ mitb_holder.name }}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

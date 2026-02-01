@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Pro Wrestling Sim - Start{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-8 col-lg-5">
+        <div class="text-center mb-5">
+            <div class="d-inline-flex align-items-center justify-content-center bg-white shadow-sm rounded-circle mb-4" style="width: 100px; height: 100px;">
+                <i class="bi bi-trophy-fill text-gold" style="font-size: 3.5rem;"></i>
+            </div>
+            <h1 class="fw-800 text-primary display-5 mb-2" style="letter-spacing: -1px;">Pro Wrestling Sim</h1>
+            <p class="text-muted fs-5">Build your wrestling empire, one show at a time.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-12">
+                <div class="card border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-primary text-white border-0 py-3 px-4">
+                        <h5 class="mb-0 fw-bold small text-uppercase ls-1"><i class="bi bi-plus-circle me-2"></i>New Journey</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="{{ url_for('new_game') }}" method="post">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted small">SELECT DATABASE</label>
+                                <select name="database" class="form-select form-select-lg" required>
+                                    <option value="">Choose a world...</option>
+                                    {% for db in databases %}
+                                    <option value="{{ db }}">{{ db }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-muted small">FEDERATION NAME</label>
+                                <input type="text" name="save_name" class="form-control form-control-lg" placeholder="e.g. Roman Federation" required>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-lg w-100 shadow-sm py-3 fw-800">
+                                <i class="bi bi-play-fill me-1"></i>BEGIN NEW GAME
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if saves %}
+            <div class="col-md-12">
+                <div class="card border-0 shadow-sm overflow-hidden">
+                    <div class="card-header bg-light border-0 py-3 px-4">
+                        <h5 class="mb-0 fw-bold small text-uppercase text-muted ls-1"><i class="bi bi-folder-fill me-2"></i>Continue Career</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="{{ url_for('load_game') }}" method="post">
+                            <div class="row g-2">
+                                <div class="col-sm-8">
+                                    <select name="save_name" class="form-select form-select-lg" required>
+                                        <option value="">Select a save...</option>
+                                        {% for save in saves %}
+                                        <option value="{{ save }}">{{ save }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-outline-primary btn-lg w-100 py-2 h-100 fw-bold">
+                                        LOAD
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="text-center mt-5">
+            <p class="text-muted small">v0.5.0 Alpha | Simple Sim Sports</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

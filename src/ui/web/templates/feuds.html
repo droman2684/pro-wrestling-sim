@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Feuds - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-fire me-2 text-gold"></i>Feuds</h2>
+    <a href="{{ url_for('create_feud') }}" class="btn btn-gold shadow-sm">
+        <i class="bi bi-plus-circle me-1"></i>Start Feud
+    </a>
+</div>
+
+<div class="row g-4">
+    {% for feud in feuds %}
+    {% set w1 = game.get_wrestler_by_id(feud.wrestler_a_id) %}
+    {% set w2 = game.get_wrestler_by_id(feud.wrestler_b_id) %}
+    <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm {% if not feud.is_active %}opacity-75{% endif %}">
+            <div class="card-header bg-white border-bottom-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <span>
+                    {% if feud.is_active %}
+                    <span class="badge rounded-pill {% if feud.intensity == 'blood' %}bg-danger{% elif feud.intensity == 'intense' %}bg-warning text-dark{% else %}bg-info{% endif %} me-2">
+                        {{ feud.intensity.upper() }}
+                    </span>
+                    {% else %}
+                    <span class="badge bg-secondary rounded-pill me-2">ENDED</span>
+                    {% endif %}
+                    <span class="text-muted fw-bold small">FEUD #{{ feud.id }}</span>
+                </span>
+                {% if feud.blowoff_match_scheduled %}
+                <span class="badge bg-danger rounded-pill">BLOWOFF SCHEDULED</span>
+                {% endif %}
+            </div>
+            <div class="card-body px-4 pb-4">
+                <div class="row align-items-center text-center mb-4">
+                    <div class="col-5">
+                        <div class="mb-2">
+                            <a href="{{ url_for('wrestler_profile', wrestler_id=w1.id) if w1 else '#' }}"
+                               class="text-decoration-none text-dark fw-bold fs-5 d-block">
+                                {{ w1.name if w1 else 'Unknown' }}
+                            </a>
+                            <span class="badge rounded-pill {% if w1 and w1.alignment == 'Face' %}badge-face{% elif w1 and w1.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %}">
+                                {{ w1.alignment if w1 else '?' }}
+                            </span>
+                        </div>
+                        <div class="p-2 rounded bg-light d-inline-block px-3">
+                            <span class="fs-4 fw-bold text-primary">{{ feud.wins_a }}</span>
+                            <span class="text-muted small d-block" style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase;">WINS</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <span class="fw-bold text-muted fs-4">VS</span>
+                    </div>
+                    <div class="col-5">
+                        <div class="mb-2">
+                            <a href="{{ url_for('wrestler_profile', wrestler_id=w2.id) if w2 else '#' }}"
+                               class="text-decoration-none text-dark fw-bold fs-5 d-block">
+                                {{ w2.name if w2 else 'Unknown' }}
+                            </a>
+                            <span class="badge rounded-pill {% if w2 and w2.alignment == 'Face' %}badge-face{% elif w2 and w2.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %}">
+                                {{ w2.alignment if w2 else '?' }}
+                            </span>
+                        </div>
+                        <div class="p-2 rounded bg-light d-inline-block px-3">
+                            <span class="fs-4 fw-bold text-primary">{{ feud.wins_b }}</span>
+                            <span class="text-muted small d-block" style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase;">WINS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center bg-light rounded py-2 mb-4">
+                    <span class="text-muted small fw-bold">
+                        {{ feud.total_matches }} MATCHES FOUGHT |
+                        {% if feud.is_active %}
+                        <span class="text-primary">{{ feud.matches_remaining }} REMAINING</span>
+                        {% else %}
+                        <span class="text-danger">CONCLUDED</span>
+                        {% endif %}
+                    </span>
+                </div>
+
+                {% if feud.is_active %}
+                <div class="d-flex gap-2 justify-content-center">
+                    {% if not feud.blowoff_match_scheduled %}
+                    <form action="{{ url_for('schedule_blowoff', feud_id=feud.id) }}" method="post" class="flex-grow-1">
+                        <button type="submit" class="btn btn-sm btn-outline-warning w-100 fw-bold">Schedule Blowoff</button>
+                    </form>
+                    {% endif %}
+                    <form action="{{ url_for('end_feud', feud_id=feud.id) }}" method="post" class="flex-grow-1">
+                        <button type="submit" class="btn btn-sm btn-outline-danger w-100 fw-bold">End Feud</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="bi bi-fire text-muted" style="font-size: 5rem; opacity: 0.2;"></i>
+            </div>
+            <h4 class="text-muted mb-3">No active feuds</h4>
+            <a href="{{ url_for('create_feud') }}" class="btn btn-gold btn-lg shadow-sm">Start Your First Feud</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

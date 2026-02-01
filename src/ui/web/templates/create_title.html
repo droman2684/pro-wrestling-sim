@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Create Title - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h2 class="mb-4"><i class="bi bi-award me-2 text-gold"></i>Create Championship</h2>
+
+        <form method="post">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-muted small">TITLE NAME *</label>
+                        <input type="text" name="name" class="form-control form-control-lg" required placeholder="World Heavyweight Championship">
+                    </div>
+                    <div class="mb-0">
+                        <div class="d-flex justify-content-between mb-2">
+                            <label class="form-label fw-bold text-muted small mb-0">PRESTIGE (1-100)</label>
+                            <span class="badge bg-primary rounded-pill">50</span>
+                        </div>
+                        <input type="range" name="prestige" class="form-range" min="1" max="100" value="50"
+                               oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        <p class="form-text small text-muted mt-2 mb-0">Higher prestige titles mean more to wrestlers and fans, and give larger rating bonuses to matches.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-gold btn-lg px-5 shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i>Create Title
+                </button>
+                <a href="{{ url_for('titles') }}" class="btn btn-outline-primary btn-lg px-4 border-0">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

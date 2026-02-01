@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+
+{% block title %}Create Wrestler - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h2 class="mb-4"><i class="bi bi-person-plus me-2 text-gold"></i>Create Wrestler</h2>
+
+        <form method="post">
+            <!-- Identity Section -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-person me-2"></i>Identity</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small">NAME *</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small">NICKNAME <span class="text-muted">(Optional)</span></label>
+                            <input type="text" name="nickname" class="form-control" placeholder="e.g., The Hitman">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">AGE</label>
+                            <input type="number" name="age" class="form-control" value="25" min="18" max="65">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">HEIGHT (inches)</label>
+                            <input type="number" name="height" class="form-control" value="72" min="60" max="96">
+                            <small class="text-muted">72 = 6'0"</small>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">WEIGHT (lbs)</label>
+                            <input type="number" name="weight" class="form-control" value="220" min="150" max="600">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">ALIGNMENT</label>
+                            <select name="alignment" class="form-select">
+                                <option value="Face">Face (Good Guy)</option>
+                                <option value="Heel">Heel (Bad Guy)</option>
+                                <option value="Tweener">Tweener (Neutral)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small">REGION</label>
+                            <input type="text" name="region" class="form-control" placeholder="Unknown">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">PRIMARY STYLE</label>
+                            <select name="primary_style" class="form-select">
+                                <option value="all_rounder">All-Rounder</option>
+                                <option value="powerhouse">Powerhouse</option>
+                                <option value="technician">Technician</option>
+                                <option value="high_flyer">High Flyer</option>
+                                <option value="brawler">Brawler</option>
+                                <option value="submission">Submission Specialist</option>
+                                <option value="showman">Showman</option>
+                                <option value="giant">Giant</option>
+                                <option value="hardcore">Hardcore</option>
+                                <option value="striker">Striker</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small">SECONDARY STYLE <span class="text-muted">(Optional)</span></label>
+                            <select name="secondary_style" class="form-select">
+                                <option value="">None</option>
+                                <option value="all_rounder">All-Rounder</option>
+                                <option value="powerhouse">Powerhouse</option>
+                                <option value="technician">Technician</option>
+                                <option value="high_flyer">High Flyer</option>
+                                <option value="brawler">Brawler</option>
+                                <option value="submission">Submission Specialist</option>
+                                <option value="showman">Showman</option>
+                                <option value="giant">Giant</option>
+                                <option value="hardcore">Hardcore</option>
+                                <option value="striker">Striker</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Moves Section -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-lightning-fill me-2"></i>Finisher</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold text-muted small">FINISHER NAME <span class="text-muted">(Optional)</span></label>
+                            <input type="text" name="finisher_name" class="form-control" placeholder="e.g., Tombstone Piledriver">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small">FINISHER TYPE</label>
+                            <select name="finisher_type" class="form-select">
+                                <option value="power">Power Move</option>
+                                <option value="technical">Technical</option>
+                                <option value="aerial">Aerial</option>
+                                <option value="submission">Submission</option>
+                                <option value="strike">Strike</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physical Stats -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-heart-fill me-2"></i>Physical Attributes</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">STRENGTH</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="strength" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">SPEED</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="speed" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">AGILITY</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="agility" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">DURABILITY</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="durability" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">RECOVERY</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="recovery" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offense Stats -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-activity me-2"></i>Offensive Skills</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">STRIKING</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="striking" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">GRAPPLING</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="grappling" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">SUBMISSION</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="submission" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">HIGH FLYING</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="high_flying" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">POWER MOVES</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="power_moves" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">TECHNICAL</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="technical" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">HARDCORE</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="hardcore" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">DIRTY TACTICS</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="dirty_tactics" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defense Stats -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-shield-fill me-2"></i>Defensive Skills</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">STRIKE DEFENSE</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="strike_defense" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">GRAPPLE DEFENSE</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="grapple_defense" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">AERIAL DEFENSE</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="aerial_defense" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">RING AWARENESS</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="ring_awareness" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment Stats -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-mic me-2"></i>Entertainment Stats</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">MIC SKILLS</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="mic_skills" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">CHARISMA</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="charisma" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">LOOK</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="look" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">STAR POWER</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="star_power" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">ENTRANCE</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="entrance" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intangibles -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-stars me-2"></i>Intangibles</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">PSYCHOLOGY</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="psychology" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">CONSISTENCY</label>
+                                <span class="badge bg-primary rounded-pill">75</span>
+                            </div>
+                            <input type="range" name="consistency" class="form-range" min="1" max="100" value="75"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">BIG MATCH</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="big_match" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="form-label fw-bold text-muted small mb-0">CLUTCH</label>
+                                <span class="badge bg-primary rounded-pill">50</span>
+                            </div>
+                            <input type="range" name="clutch" class="form-range" min="1" max="100" value="50"
+                                   oninput="this.parentElement.querySelector('.badge').textContent = this.value">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-gold btn-lg px-5 shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i>Create Wrestler
+                </button>
+                <a href="{{ url_for('roster') }}" class="btn btn-outline-primary btn-lg px-4 border-0">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

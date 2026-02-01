@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Records & History - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-clock-history me-2 text-gold"></i>Records & History</h2>
+    <a href="{{ url_for('head_to_head') }}" class="btn btn-outline-primary shadow-sm border-0 fw-bold">
+        <i class="bi bi-arrow-left-right me-1"></i>Head-to-Head Lookup
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-bottom pt-4 px-4">
+        <h5 class="fw-bold mb-0 text-primary"><i class="bi bi-list-ul me-2"></i>Recent Match History</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if match_history %}
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3">DATE</th>
+                        <th>MATCH</th>
+                        <th>WINNER</th>
+                        <th class="text-center">RATING</th>
+                        <th class="pe-4">TYPE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in match_history %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="text-muted small fw-bold">W{{ match.date.week }} M{{ match.date.month }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center flex-wrap gap-1">
+                                {% if match.winner_ids|length > 1 %}
+                                    {# Handle Tag Teams or Multi-man #}
+                                    <span class="fw-bold text-dark">{{ match.winner_names|join(', ') }}</span>
+                                    <span class="text-muted mx-1">def.</span>
+                                    <span class="text-muted">{{ match.loser_names|join(', ') }}</span>
+                                {% else %}
+                                    {# Standard display #}
+                                    {% for pid in match.participant_ids %}
+                                        {% set w = game.get_wrestler_by_id(pid) %}
+                                        {% set is_winner = pid in match.winner_ids %}
+                                        <a href="{{ url_for('wrestler_profile', wrestler_id=pid) }}"
+                                           class="text-decoration-none {% if is_winner %}text-dark fw-bold{% else %}text-muted{% endif %}">
+                                            {{ w.name if w else 'Unknown' }}
+                                        </a>
+                                        {% if not loop.last %}<span class="text-muted mx-1">vs</span>{% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            {% if match.winner_names %}
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-10 rounded-pill">
+                                    <i class="bi bi-trophy-fill me-1" style="font-size: 0.7rem;"></i>
+                                    {{ match.winner_names|join(', ') }}
+                                </span>
+                            {% elif match.is_draw %}
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-10 rounded-pill">DRAW</span>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <span class="fw-800 {% if match.rating >= 90 %}text-success{% elif match.rating >= 75 %}text-primary{% elif match.rating >= 60 %}text-warning{% else %}text-danger{% endif %}" style="font-size: 1.1rem;">
+                                {{ match.rating }}
+                            </span>
+                        </td>
+                        <td class="pe-4">
+                            <span class="badge rounded-pill {% if match.is_ppv %}bg-danger{% else %}bg-secondary{% endif %} me-1" style="font-size: 0.7rem;">
+                                {{ 'PPV' if match.is_ppv else 'TV' }}
+                            </span>
+                            {% if match.is_title_match %}
+                            <span class="badge badge-champion rounded-pill" style="font-size: 0.7rem;">TITLE</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="bi bi-journal-text text-muted" style="font-size: 5rem; opacity: 0.2;"></i>
+            </div>
+            <h5 class="text-muted mb-2">No history found</h5>
+            <p class="text-muted small">Match history starts recording after you run shows.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

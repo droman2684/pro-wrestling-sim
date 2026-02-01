@@ -1,0 +1,519 @@
+{% extends "base.html" %}
+
+{% block title %}Book Show - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 fw-bold">
+                <i class="bi bi-calendar-event me-2 text-gold"></i>
+                {% if current_show %}
+                Booking: {{ current_show.name }}
+                {% else %}
+                Prepare Show
+                {% endif %}
+            </h2>
+            <div>
+                {% if is_ppv %}
+                <span class="badge bg-danger shadow-sm">
+                    <i class="bi bi-star-fill me-1"></i>{{ ppv_info.name }}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if not current_show %}
+        <!-- Show Selector -->
+        {% if unbooked_shows %}
+        <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom fw-bold text-primary">
+                <i class="bi bi-calendar-check me-2"></i>Select Scheduled Event
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('select_show') }}" method="post" class="row g-2 align-items-end">
+                    <div class="col-md-8">
+                        <label class="form-label text-muted small fw-bold mb-1">UPCOMING THIS WEEK</label>
+                        <select name="show_id" class="form-select">
+                            <option value="">-- Select event --</option>
+                            {% for show in unbooked_shows %}
+                            <option value="{{ show.id }}" {% if selected_show and selected_show.id == show.id %}selected{% endif %}>
+                                {{ show.name }}
+                                {% if show.show_type == 'ppv' %}(PPV){% endif %}
+                                - {{ show.day_of_week.name|capitalize }}
+                                {% if show.brand_id %}
+                                    {% for brand in game.get_active_brands() %}
+                                        {% if brand.id == show.brand_id %} [{{ brand.short_name }}]{% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                {% if loop.index == 1 %}(Next Up){% endif %}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            Select Event
+                        </button>
+                    </div>
+                </form>
+                {% if selected_show %}
+                <div class="mt-2 p-2 bg-light rounded d-flex justify-content-between align-items-center small">
+                    <div>
+                        <span class="text-muted fw-bold">SELECTED:</span> {{ selected_show.name }}
+                        {% if selected_brand %}
+                        <span class="badge ms-2" style="background-color: {{ selected_brand.color }};">{{ selected_brand.short_name }}</span>
+                        {% endif %}
+                    </div>
+                    <form action="{{ url_for('clear_show_selection') }}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-link btn-sm text-decoration-none text-muted p-0">Clear</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Create Show -->
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom fw-bold">
+                <i class="bi bi-plus-circle me-2 text-gold"></i>Create Show
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('create_show') }}" method="post" class="row g-2 align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold mb-1">SHOW NAME</label>
+                        <input type="text" name="show_name" class="form-control"
+                               placeholder="Show Name" value="{{ selected_show.name if selected_show else (ppv_info.name if is_ppv else 'Weekly Show') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-gold w-100">
+                            Create Show
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url_for('ai_booking') }}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-magic me-1"></i>AI Book
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Current Card -->
+        <div class="card mb-4 border-0 shadow-sm overflow-hidden">
+            <div class="card-header d-flex justify-content-between align-items-center bg-white border-bottom text-dark">
+                <span class="fw-bold"><i class="bi bi-list-ol me-2 text-primary"></i>Match Card</span>
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('ai_booking') }}" class="btn btn-sm btn-outline-primary border-0 fw-bold">
+                        <i class="bi bi-magic me-1"></i>AI Fill
+                    </a>
+                    <form action="{{ url_for('cancel_show') }}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-danger border-0">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                {% if current_show.match_count == 0 %}
+                <div class="text-center py-4 bg-light">
+                    <p class="text-muted mb-0 small">No matches booked yet. Add matches below.</p>
+                </div>
+                {% else %}
+                <ul class="list-group list-group-flush">
+                    {% for match in current_show.matches %}
+                    <li class="list-group-item d-flex align-items-center justify-content-between py-2 px-3">
+                        <div class="small">
+                            <span class="text-muted me-2">{{ loop.index }}</span>
+                            {% if match.match_type == "Tag Team" %}
+                                <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 me-2" style="font-size: 0.6rem;">TAG</span>
+                                <span class="fw-bold">{{ match.team_a.name }}</span>
+                                <span class="text-muted mx-1">vs</span>
+                                <span class="fw-bold">{{ match.team_b.name }}</span>
+                            {% else %}
+                                <span class="fw-bold">{{ match.p1.name }}</span>
+                                <span class="text-muted mx-1">vs</span>
+                                <span class="fw-bold">{{ match.p2.name }}</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if match.is_title_match %}<span class="badge badge-champion ms-1"><i class="bi bi-trophy-fill"></i></span>{% endif %}
+                            {% if match.is_steel_cage %}<span class="badge bg-dark ms-1">Cage</span>{% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                    {% for match in current_show.multi_man_matches %}
+                    <li class="list-group-item py-2 px-3">
+                        <div class="d-flex align-items-center mb-1 small">
+                            <span class="badge bg-warning text-dark me-2" style="font-size: 0.6rem;">{{ match.participants|length }}-WAY</span>
+                            <div class="fw-bold">
+                                {% for w in match.participants %}{{ w.name }}{% if not loop.last %} <span class="text-muted mx-1">vs</span> {% endif %}{% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    <!-- Other specialty matches abbreviated for logic but kept compact -->
+                </ul>
+                {% endif %}
+            </div>
+            {% if current_show.match_count > 0 %}
+            <div class="card-footer bg-white border-top p-2">
+                <form action="{{ url_for('run_show') }}" method="post">
+                    <button type="submit" class="btn btn-ring w-100">
+                        <i class="bi bi-play-fill me-1"></i>Run Show Simulation
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Add Match Forms -->
+        <h6 class="text-muted fw-bold mb-2 ms-1 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Add Matches</h6>
+        <div class="accordion border-0 shadow-sm rounded overflow-hidden mb-4" id="matchAccordion">
+            <!-- Singles Match -->
+            <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed py-2 fw-bold small" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#singlesCollapse">
+                        <i class="bi bi-person me-2 text-primary"></i>Singles Match
+                    </button>
+                </h2>
+                <div id="singlesCollapse" class="accordion-collapse collapse" data-bs-parent="#matchAccordion">
+                    <div class="accordion-body bg-light py-3">
+                        <form action="{{ url_for('add_singles_match') }}" method="post">
+                            <div class="row g-2">
+                                <div class="col-md-5">
+                                    <select name="wrestler_a" class="form-select form-select-sm wrestler-select" required>
+                                        <option value="">Wrestler 1</option>
+                                        {% for w in wrestlers %}
+                                        <option value="{{ w.id }}" 
+                                                data-name="{{ w.name|lower }}"
+                                                data-alignment="{{ w.alignment }}"
+                                                data-style="{{ w.primary_style }}">
+                                            {{ w.name }} [{{ w.get_overall_rating() }}] - {{ w.alignment }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-2 text-center small text-muted align-self-center">VS</div>
+                                <div class="col-md-5">
+                                    <select name="wrestler_b" class="form-select form-select-sm wrestler-select" required>
+                                        <option value="">Wrestler 2</option>
+                                        {% for w in wrestlers %}
+                                        <option value="{{ w.id }}" 
+                                                data-name="{{ w.name|lower }}"
+                                                data-alignment="{{ w.alignment }}"
+                                                data-style="{{ w.primary_style }}">
+                                            {{ w.name }} [{{ w.get_overall_rating() }}] - {{ w.alignment }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check small mt-1">
+                                        <input type="checkbox" name="steel_cage" class="form-check-input" id="steelCage">
+                                        <label class="form-check-label" for="steelCage">Steel Cage</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check small mt-1">
+                                        <input type="checkbox" name="title_match" class="form-check-input" id="titleMatch">
+                                        <label class="form-check-label" for="titleMatch">Title Match</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="title_id" class="form-select form-select-sm">
+                                        <option value="">Select Title...</option>
+                                        {% for t in titles %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <button type="submit" class="btn btn-sm btn-primary w-100">Add to Card</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tag Team Match -->
+            <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed py-2 fw-bold small" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#tagCollapse">
+                        <i class="bi bi-people me-2 text-info"></i>Tag Team Match
+                    </button>
+                </h2>
+                <div id="tagCollapse" class="accordion-collapse collapse" data-bs-parent="#matchAccordion">
+                    <div class="accordion-body bg-light py-3">
+                        <form action="{{ url_for('add_tag_match') }}" method="post">
+                            <div class="row g-2">
+                                <div class="col-md-5">
+                                    <select name="team_a" class="form-select form-select-sm" required>
+                                        <option value="">Team 1</option>
+                                        {% for t in tag_teams %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-2 text-center small text-muted align-self-center">VS</div>
+                                <div class="col-md-5">
+                                    <select name="team_b" class="form-select form-select-sm" required>
+                                        <option value="">Team 2</option>
+                                        {% for t in tag_teams %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check small mt-1">
+                                        <input type="checkbox" name="title_match" class="form-check-input" id="tagTitleMatch">
+                                        <label class="form-check-label" for="tagTitleMatch">Title Match</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <select name="title_id" class="form-select form-select-sm">
+                                        <option value="">Select Title...</option>
+                                        {% for t in titles %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-2">
+                                    <button type="submit" class="btn btn-sm btn-info text-white w-100">Add to Card</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Man Match -->
+            <div class="accordion-item border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed py-2 fw-bold small" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#multiCollapse">
+                        <i class="bi bi-people-fill me-2 text-warning"></i>Triple Threat / Fatal 4-Way
+                    </button>
+                </h2>
+                <div id="multiCollapse" class="accordion-collapse collapse" data-bs-parent="#matchAccordion">
+                    <div class="accordion-body bg-light py-3">
+                        <form action="{{ url_for('add_multi_match') }}" method="post">
+                            <div class="mb-2">
+                                <label class="form-label text-muted small fw-bold mb-1">SELECT 3-4 WRESTLERS</label>
+                                <select name="wrestlers" class="form-select form-select-sm wrestler-select" multiple size="5" required>
+                                    {% for w in wrestlers %}
+                                    <option value="{{ w.id }}"
+                                            data-name="{{ w.name|lower }}"
+                                            data-alignment="{{ w.alignment }}"
+                                            data-style="{{ w.primary_style }}">
+                                        {{ w.name }} [{{ w.get_overall_rating() }}] - {{ w.alignment }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="form-check small mt-1">
+                                        <input type="checkbox" name="title_match" class="form-check-input" id="multiTitleMatch">
+                                        <label class="form-check-label" for="multiTitleMatch">Title Match</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <select name="title_id" class="form-select form-select-sm">
+                                        <option value="">Select Title...</option>
+                                        {% for t in titles %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-warning w-100 mt-2">Add to Card</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        {% if current_show %}
+        <!-- Filter Card -->
+        <div class="card mb-3 shadow-sm border-0 bg-light">
+            <div class="card-header bg-white border-bottom fw-bold small text-primary">
+                <i class="bi bi-funnel-fill me-2"></i>Roster Filter
+            </div>
+            <div class="card-body p-3">
+                <div class="mb-2">
+                    <input type="text" id="filterName" class="form-control form-control-sm" placeholder="Search name...">
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <select id="filterAlignment" class="form-select form-select-sm">
+                            <option value="">Any Alignment</option>
+                            <option value="Face">Face</option>
+                            <option value="Heel">Heel</option>
+                            <option value="Tweener">Tweener</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="filterStyle" class="form-select form-select-sm">
+                            <option value="">Any Style</option>
+                            <option value="all_rounder">All Rounder</option>
+                            <option value="brawler">Brawler</option>
+                            <option value="high_flyer">High Flyer</option>
+                            <option value="technician">Technician</option>
+                            <option value="powerhouse">Powerhouse</option>
+                            <option value="giant">Giant</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-2 text-end">
+                    <small class="text-muted fst-italic" id="matchCount">Showing all wrestlers</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filtered Rankings for Booking -->
+        <div class="card mb-3 shadow-sm border-0">
+            <div class="card-header bg-white border-bottom fw-bold small">
+                <i class="bi bi-trophy me-2 text-warning"></i>
+                {% if selected_brand %}
+                    {{ selected_brand.short_name }} Top Contenders
+                {% else %}
+                    Top Contenders
+                {% endif %}
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for w in wrestler_rankings[:5] %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center py-1 px-3 small">
+                        <span>
+                            <span class="text-muted me-2">#{{ loop.index }}</span>
+                            {{ w.name }}
+                        </span>
+                        <span class="badge bg-light text-dark border" style="font-size: 0.6rem;">{{ w.wins }}-{{ w.losses }}</span>
+                    </div>
+                    {% else %}
+                    <div class="list-group-item text-center text-muted small py-2">No data</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card mb-3 border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom fw-bold small">
+                <i class="bi bi-fire me-2 text-danger"></i>Active Feuds
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for feud in game.get_active_feuds()[:5] %}
+                    {% set w1 = game.get_wrestler_by_id(feud.wrestler_a_id) %}
+                    {% set w2 = game.get_wrestler_by_id(feud.wrestler_b_id) %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-3 small">
+                        <span>{{ w1.name }} <span class="text-muted mx-1">vs</span> {{ w2.name }}</span>
+                        <span class="badge {% if feud.intensity == 'blood' %}bg-danger{% elif feud.intensity == 'intense' %}bg-warning text-dark{% else %}bg-info{% endif %}" style="font-size: 0.6rem;">
+                            {{ feud.intensity|upper }}
+                        </span>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item text-muted small text-center py-2">None</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card bg-light border-0 shadow-sm">
+            <div class="card-header bg-transparent border-bottom fw-bold small text-info">
+                <i class="bi bi-lightbulb-fill me-2"></i>Strategy
+            </div>
+            <div class="card-body small p-3">
+                <ul class="mb-0 ps-3 text-muted">
+                    <li class="mb-1">Feuds increase match heat.</li>
+                    <li class="mb-1">Title matches on PPV for impact.</li>
+                    <li>Check stamina before main events.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Booking filter script loaded.");
+        const filterName = document.getElementById('filterName');
+        const filterAlignment = document.getElementById('filterAlignment');
+        const filterStyle = document.getElementById('filterStyle');
+        const wrestlerSelects = document.querySelectorAll('.wrestler-select');
+        const matchCount = document.getElementById('matchCount');
+
+        function applyFilters() {
+            const nameVal = filterName.value.toLowerCase().trim();
+            const alignVal = filterAlignment.value;
+            const styleVal = filterStyle.value;
+            let visibleCount = 0;
+            let totalOptions = 0;
+
+            wrestlerSelects.forEach(select => {
+                const options = select.querySelectorAll('option');
+                
+                options.forEach(option => {
+                    // Skip placeholder "Select" option (empty value)
+                    if (!option.value) return;
+                    
+                    totalOptions++;
+
+                    const name = option.getAttribute('data-name') || '';
+                    const align = option.getAttribute('data-alignment') || '';
+                    const style = option.getAttribute('data-style') || '';
+
+                    let show = true;
+
+                    if (nameVal && !name.includes(nameVal)) show = false;
+                    if (alignVal && align !== alignVal) show = false;
+                    if (styleVal && style !== styleVal) show = false;
+
+                    // Apply visibility
+                    option.hidden = !show;
+                    option.style.display = show ? '' : 'none';
+                    option.disabled = !show;
+                    
+                    // Deselect if hidden
+                    if (!show && option.selected) {
+                        option.selected = false;
+                        select.value = ""; // Reset to placeholder
+                    }
+                    
+                    if (show) visibleCount++;
+                });
+            });
+            
+            // Update count based on the first select found (as they duplicate the roster)
+            if (wrestlerSelects.length > 0) {
+                // Count visible options in the first select
+                let firstSelectCount = 0;
+                const firstOptions = wrestlerSelects[0].querySelectorAll('option');
+                firstOptions.forEach(opt => {
+                    if (opt.value && !opt.hidden) firstSelectCount++;
+                });
+                if (matchCount) {
+                    matchCount.textContent = `Showing ${firstSelectCount} wrestlers`;
+                }
+            }
+        }
+
+        if (filterName) {
+            filterName.addEventListener('input', applyFilters); // Changed to 'input' for immediate reaction
+            filterAlignment.addEventListener('change', applyFilters);
+            filterStyle.addEventListener('change', applyFilters);
+            console.log("Filter event listeners attached.");
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Roster - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-people-fill me-2 text-gold"></i>Roster <span class="text-muted fs-4">({{ wrestlers|length }})</span></h2>
+    <a href="{{ url_for('create_wrestler') }}" class="btn btn-gold shadow-sm">
+        <i class="bi bi-person-plus me-1"></i>Create Wrestler
+    </a>
+</div>
+
+<div class="row g-4">
+    {% for wrestler in wrestlers %}
+    <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h5 class="card-title fw-bold mb-0 text-primary">{{ wrestler.name }}</h5>
+                        {% if wrestler.nickname %}
+                        <small class="text-muted">"{{ wrestler.nickname }}"</small>
+                        {% endif %}
+                    </div>
+                    <span class="badge rounded-pill {% if wrestler.alignment == 'Face' %}badge-face{% elif wrestler.alignment == 'Heel' %}badge-heel{% else %}badge-tweener{% endif %}">
+                        {{ wrestler.alignment }}
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between small text-muted mb-1 fw-bold">
+                        <span>OVERALL</span>
+                        <span>{{ wrestler.get_overall_rating() }}</span>
+                    </div>
+                    <div class="stat-bar bg-light">
+                        <div class="stat-bar-fill {% if wrestler.get_overall_rating() >= 80 %}stat-high{% elif wrestler.get_overall_rating() >= 60 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ wrestler.get_overall_rating() }}%;"></div>
+                    </div>
+                </div>
+
+                <div class="row g-2 mb-3 small">
+                    <div class="col-6">
+                        <span class="text-muted d-block">Record</span>
+                        <span class="fw-bold">{{ wrestler.wins }}-{{ wrestler.losses }}</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-muted d-block">Heat</span>
+                        <div class="d-flex align-items-center">
+                            <span class="heat-indicator {% if wrestler.heat >= 80 %}heat-hot{% elif wrestler.heat >= 60 %}heat-warm{% elif wrestler.heat >= 40 %}heat-neutral{% elif wrestler.heat >= 20 %}heat-cool{% else %}heat-cold{% endif %}"></span>
+                            <span class="fw-bold">{{ wrestler.heat }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-muted d-block">Stamina</span>
+                        <span class="fw-bold {% if wrestler.stamina < 30 %}text-danger{% elif wrestler.stamina < 60 %}text-warning{% else %}text-success{% endif %}">
+                            {{ wrestler.stamina }}%
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <span class="text-muted d-block">Age</span>
+                        <span class="fw-bold">{{ wrestler.age }}</span>
+                    </div>
+                </div>
+
+                {% if wrestler.has_mitb_briefcase %}
+                <div class="mb-3">
+                    <span class="badge badge-champion w-100 py-2"><i class="bi bi-briefcase-fill me-1"></i>MITB Briefcase</span>
+                </div>
+                {% endif %}
+
+                <a href="{{ url_for('wrestler_profile', wrestler_id=wrestler.id) }}" class="btn btn-sm btn-outline-primary w-100">
+                    View Profile
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

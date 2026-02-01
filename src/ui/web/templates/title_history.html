@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title.name }} History - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 style="color: var(--gold);"><i class="bi bi-trophy-fill me-2"></i>{{ title.name }}</h2>
+    <p class="text-muted">Championship History</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-star-fill me-2"></i>Current Champion
+            </div>
+            <div class="card-body text-center">
+                {% if holder %}
+                <i class="bi bi-person-circle" style="font-size: 4rem; color: var(--gold);"></i>
+                <h4 class="mt-3">{{ holder.name }}</h4>
+                <a href="{{ url_for('wrestler_profile', wrestler_id=holder.id) }}" class="btn btn-sm btn-outline-light">
+                    View Profile
+                </a>
+                {% else %}
+                <i class="bi bi-question-circle" style="font-size: 4rem; color: #666;"></i>
+                <h4 class="mt-3 text-muted">VACANT</h4>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="bi bi-info-circle me-2"></i>Title Info
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Prestige</span>
+                        <span>{{ title.prestige }}</span>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill {% if title.prestige >= 80 %}stat-high{% elif title.prestige >= 50 %}stat-mid{% else %}stat-low{% endif %}"
+                             style="width: {{ title.prestige }}%;"></div>
+                    </div>
+                </div>
+                <p class="small text-muted mb-0">Total Reigns: {{ history|length }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-clock-history me-2"></i>Reign History
+            </div>
+            <div class="card-body p-0">
+                {% if history %}
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Champion</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Defenses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reign in history|reverse %}
+                        {% set champ = game.get_wrestler_by_id(reign.wrestler_id) %}
+                        <tr>
+                            <td>{{ loop.revindex }}</td>
+                            <td>
+                                {% if champ %}
+                                <a href="{{ url_for('wrestler_profile', wrestler_id=champ.id) }}"
+                                   class="text-decoration-none text-light">{{ champ.name }}</a>
+                                {% else %}
+                                Unknown
+                                {% endif %}
+                            </td>
+                            <td>{{ reign.won_date }}</td>
+                            <td>{{ reign.lost_date if reign.lost_date else 'Current' }}</td>
+                            <td><span class="badge bg-secondary">{{ reign.successful_defenses }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-muted text-center py-4">No reign history yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('titles') }}" class="btn btn-outline-light">
+        <i class="bi bi-arrow-left me-1"></i>Back to Titles
+    </a>
+</div>
+{% endblock %}

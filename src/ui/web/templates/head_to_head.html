@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Head-to-Head - Pro Wrestling Sim{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="color: var(--gold);"><i class="bi bi-arrow-left-right me-2"></i>Head-to-Head Records</h2>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-search me-2"></i>Lookup
+            </div>
+            <div class="card-body">
+                <form method="post" class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label">Wrestler 1</label>
+                        <select name="wrestler_a" class="form-select" required>
+                            <option value="">Select wrestler...</option>
+                            {% for w in wrestlers %}
+                            <option value="{{ w.id }}" {% if w1 and w.id == w1.id %}selected{% endif %}>
+                                {{ w.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-center align-self-end">
+                        <span class="vs-text">VS</span>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Wrestler 2</label>
+                        <select name="wrestler_b" class="form-select" required>
+                            <option value="">Select wrestler...</option>
+                            {% for w in wrestlers %}
+                            <option value="{{ w.id }}" {% if w2 and w.id == w2.id %}selected{% endif %}>
+                                {{ w.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-gold">
+                            <i class="bi bi-search me-1"></i>Look Up Record
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if h2h %}
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-bar-chart me-2"></i>Results
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-4">
+                    <div class="col-5">
+                        <a href="{{ url_for('wrestler_profile', wrestler_id=w1.id) }}"
+                           class="text-decoration-none text-light">
+                            <h4>{{ w1.name }}</h4>
+                        </a>
+                        <span class="fs-1 fw-bold" style="color: var(--gold);">{{ h2h.wins_a }}</span>
+                        <div class="small text-muted">wins</div>
+                    </div>
+                    <div class="col-2 d-flex align-items-center justify-content-center">
+                        <span class="vs-text fs-4">-</span>
+                    </div>
+                    <div class="col-5">
+                        <a href="{{ url_for('wrestler_profile', wrestler_id=w2.id) }}"
+                           class="text-decoration-none text-light">
+                            <h4>{{ w2.name }}</h4>
+                        </a>
+                        <span class="fs-1 fw-bold" style="color: var(--gold);">{{ h2h.wins_b }}</span>
+                        <div class="small text-muted">wins</div>
+                    </div>
+                </div>
+
+                <p class="text-center text-muted">
+                    Total matches: {{ h2h.total_matches }}
+                </p>
+
+                {% if h2h.matches %}
+                <hr>
+                <h6>Match History</h6>
+                <ul class="list-unstyled">
+                    {% for match in h2h.matches[-5:] %}
+                    <li class="mb-2">
+                        <span class="text-muted small">{{ match.date }}</span>
+                        -
+                        {% set winner = game.get_wrestler_by_id(match.winner_id) %}
+                        <span style="color: var(--gold);">{{ winner.name if winner else 'Unknown' }}</span> won
+                        <span class="badge bg-secondary ms-1">{{ match.rating }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('records') }}" class="btn btn-outline-light">
+        <i class="bi bi-arrow-left me-1"></i>Back to Records
+    </a>
+</div>
+{% endblock %}

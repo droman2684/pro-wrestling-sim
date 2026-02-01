@@ -1,0 +1,1 @@
+web: gunicorn src.ui.web.app:app
