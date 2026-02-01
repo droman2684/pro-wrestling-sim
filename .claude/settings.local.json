@@ -10,7 +10,13 @@
       "Bash(del \"D:\\\\simple_sim_sports\\\\pro-wrestling\\\\src\\\\match.txt\")",
       "Bash(pip show:*)",
       "Bash(findstr:*)",
-      "Bash(del \"D:\\\\simple_sim_sports\\\\pro-wrestling\\\\test_stables.py\")"
+      "Bash(del \"D:\\\\simple_sim_sports\\\\pro-wrestling\\\\test_stables.py\")",
+      "Bash(del master_design_doc.md PRODUCT_ROADMAP_v0.6.md MVP_ROADMAP.md UI_ROADMAP.md BUILD_STATUS_v0.5.md)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git restore:*)",
+      "Bash(to navigate the game.\"\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
