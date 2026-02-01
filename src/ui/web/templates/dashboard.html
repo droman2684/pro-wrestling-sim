@@ -32,7 +32,7 @@
         {% set has_brands = game.get_active_brands()|length > 0 %}
         {% set has_titles = game.get_titles()|length > 0 %}
         {% set has_feuds = game.get_active_feuds()|length > 0 %}
-        {% set total_matches = company.total_shows_run if company else 0 %}
+        {% set total_matches = game.get_match_history()|length %}
         {% set setup_complete = has_brands and has_titles and total_matches > 0 %}
 
         {% if not setup_complete %}
