@@ -404,13 +404,19 @@ def select_show():
     """Select a scheduled show to book."""
     show_id = request.form.get('show_id')
     if show_id:
-        session['selected_show_id'] = int(show_id)
-        scheduled = game.get_scheduled_show_by_id(int(show_id))
+        show_id = int(show_id)
+        session['selected_show_id'] = show_id
+        scheduled = game.get_scheduled_show_by_id(show_id)
+        
         if scheduled:
-            flash(f'Selected show: {scheduled.name}', 'success')
+            # FIX: Actually create the show in the game engine to link it
+            game.create_show(scheduled.name, scheduled_show_id=show_id)
+            flash(f'Started booking: {scheduled.name}', 'success')
+        else:
+            flash('Scheduled show not found.', 'error')
     else:
         session.pop('selected_show_id', None)
-        flash('Cleared show selection', 'info')
+        flash('No show selected.', 'info')
     return redirect(url_for('booking'))
 
 
@@ -695,7 +701,12 @@ def apply_ai_booking():
     for i, match in enumerate(suggestions.matches):
         match.is_accepted = str(i) in selected
 
-    success, msg = game.apply_card_suggestions(suggestions)
+    # Get scheduled show ID to link if creating a new show
+    scheduled_show_id = session.get('selected_show_id')
+    if scheduled_show_id:
+        scheduled_show_id = int(scheduled_show_id)
+
+    success, msg = game.apply_card_suggestions(suggestions, scheduled_show_id=scheduled_show_id)
     flash(msg, 'success' if success else 'error')
 
     if success:

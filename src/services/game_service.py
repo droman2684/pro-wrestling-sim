@@ -367,6 +367,18 @@ class GameService:
                 rating=result.final_rating
             )
             self._current_scheduled_show_id = None
+        else:
+            # If show wasn't linked to a scheduled show, find and mark the first
+            # incomplete scheduled show for the current week as completed
+            incomplete_shows = self._state.calendar_manager.get_incomplete_shows_for_week(
+                self._state.year, self._state.month, self._state.week
+            )
+            if incomplete_shows:
+                # Mark the first incomplete show as completed
+                self._state.calendar_manager.mark_show_completed(
+                    incomplete_shows[0].id,
+                    rating=result.final_rating
+                )
 
         # Conditionally advance the week
         self.advance_week_if_complete()
@@ -1483,13 +1495,14 @@ class GameService:
         booker = AutoBooker()
         return booker.generate_card(self._state, is_ppv, show_name, brand_id=brand_id)
 
-    def apply_card_suggestions(self, card: CardSuggestion) -> Tuple[bool, str]:
+    def apply_card_suggestions(self, card: CardSuggestion, scheduled_show_id: int = None) -> Tuple[bool, str]:
         """
         Apply a card suggestion (or modified version) to create a show.
         Only applies matches marked as is_accepted=True.
 
         Args:
             card: CardSuggestion with matches to apply
+            scheduled_show_id: Optional ID of the scheduled show to link this booking to.
 
         Returns:
             (success, message) tuple
@@ -1500,7 +1513,7 @@ class GameService:
         # If no show is currently active, create one.
         # If one IS active (e.g. user created it then clicked AI Book), reuse it.
         if self._current_show is None:
-            if not self.create_show(card.show_name, card.is_ppv):
+            if not self.create_show(card.show_name, card.is_ppv, scheduled_show_id=scheduled_show_id):
                 return False, "Could not create show."
 
         accepted_matches = [m for m in card.matches if m.is_accepted]

@@ -30,6 +30,20 @@
     </div>
 </div>
 
+<!-- Success Banner (shown when show is newly selected) -->
+{% if current_show and current_show.match_count == 0 %}
+<div class="alert alert-success alert-dismissible fade show shadow-sm border-start border-4 border-success mb-4" role="alert">
+    <div class="d-flex align-items-center">
+        <i class="bi bi-check-circle-fill fs-5 me-3 text-success"></i>
+        <div>
+            <strong>Show Selected Successfully!</strong><br>
+            <small>You're now booking <strong>{{ current_show.name }}</strong>. Use the toolbox below to add matches to your card.</small>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+{% endif %}
+
 <div class="row g-4">
     <!-- LEFT COLUMN: WORKSPACE -->
     <div class="col-lg-8">

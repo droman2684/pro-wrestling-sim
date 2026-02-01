@@ -149,7 +149,7 @@
                             <i class="bi {{ 'bi-check-circle-fill text-success' if has_brands else 'bi-circle text-muted' }} me-2 fs-5"></i>
                             <div>
                                 <div class="fw-bold small">Brands</div>
-                                {% if not has_brands %}<a href="{{ url_for('create_brand') }}" class="stretched-link text-decoration-none small">Create</a>{% endif %}
+                                {% if not has_brands %}<a href="{{ url_for('brands') }}" class="stretched-link text-decoration-none small">Create</a>{% endif %}
                             </div>
                         </div>
                     </div>
