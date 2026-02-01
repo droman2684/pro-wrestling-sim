@@ -418,6 +418,37 @@ class CalendarManager:
             average_rating=0.0
         )
         self.weekly_shows.append(show)
+
+        # Inject into existing schedule for current and future months
+        # Determine current year/month from existing scheduled shows or default
+        if self.scheduled_shows:
+            # Find the max year currently scheduled
+            max_year = max(s.year for s in self.scheduled_shows)
+            # Find the min month currently scheduled for that year (to avoid back-filling too far if we want, but filling whole year is safer)
+            # Actually, better to just fill for any month that already has a schedule generated.
+            
+            # Get set of (year, month) pairs that exist in schedule
+            scheduled_months = set((s.year, s.month) for s in self.scheduled_shows)
+            
+            for (year, month) in scheduled_months:
+                for week in range(1, 5):
+                    # Check if we should add it (avoid duplicates if re-running logic, though new ID implies new show)
+                    # Just add it.
+                    self.scheduled_shows.append(ScheduledShow(
+                        id=self._get_next_id(),
+                        show_type="weekly",
+                        name=show.name,
+                        brand_id=show.brand_id,
+                        year=year,
+                        month=month,
+                        week=week,
+                        day_of_week=show.day_of_week,
+                        tier=show.tier,
+                    ))
+            
+            # Re-sort schedule
+            self.scheduled_shows.sort(key=lambda x: (x.year, x.month, x.week, x.day_of_week.value))
+
         return show
 
     def get_weekly_show_by_id(self, show_id: int) -> Optional['WeeklyShow']:
